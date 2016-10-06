@@ -73,8 +73,10 @@ public class BoardView {
 
             if (type == 1) {
                 brick.setFill(Color.BLACK);
+                brick.setStroke(Color.WHITE);
             } else {
                 brick.setFill(Color.WHITE);
+                brick.setStroke(Color.BLACK);
             }
             
             
@@ -87,7 +89,7 @@ public class BoardView {
          */
         public void handleMouseClick() {
 
-            this.getChildren().add(setBrick(1));
+            this.getChildren().add(setBrick(2));
         }
 
     }

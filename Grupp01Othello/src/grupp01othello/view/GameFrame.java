@@ -6,6 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -42,7 +44,10 @@ public class GameFrame {
      * Skapar huvud pane som skall vara igån vid hela programmets exkevering.
      */
     public void InitializeMainFrame(){
-
+        
+        Background bgWood = new Background(new BackgroundImage(new Image("image/wood.jpg"), BackgroundRepeat.SPACE, BackgroundRepeat.SPACE, BackgroundPosition.DEFAULT,
+          BackgroundSize.DEFAULT));
+        mainframe.setBackground(bgWood);
         options.getChildren().addAll(btNewSession, btExit);
         options.setMinWidth(150);
         options.setAlignment(Pos.TOP_CENTER);
@@ -52,8 +57,6 @@ public class GameFrame {
         btNewSession.setMinWidth(100);
         btExit.setMinWidth(100);
         
-        mainframe.setRight(options);
-
         primarystage.setTitle("OTHELLO");
         primarystage.setScene(mainScene);
         primarystage.show();
@@ -61,7 +64,7 @@ public class GameFrame {
     }
 
     public void setFrameComponents(GridPane board){
-        //mainframe.setleft(score); resultat
+        mainframe.setRight(options);
         mainframe.setTop(head);
         mainframe.setCenter(board);
     }
