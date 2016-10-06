@@ -2,6 +2,8 @@ package grupp01othello.controller;
 
 import grupp01othello.view.GameFrame;
 import grupp01othello.view.BoardView;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -19,15 +21,28 @@ public class GameManager {
         othelloBoard = new BoardView();
     }
 
-    public void setupGameBoard(){
-        othelloFrame.setBoard(othelloBoard.getBoard());
-        othelloFrame.startFrame();
-//        othelloBoard.board.setOnMouseClicked(event -> {
-//
-//            Circle chip = new Circle(30, 30, 15);
-//            chip.setStroke(Color.BLACK);
-//            chip.setFill(Color.WHITE);
-//        });
+    private void setupGameBoard(){
+        othelloFrame.setFrameComponents(othelloBoard.getBoard());
+        othelloFrame.InitializeMainFrame();
+
     }
+    
+    public void run(){
+        
+    setupGameBoard();
+    
+    this.othelloFrame.btExit.setOnAction((ActionEvent e) -> {
+    Platform.exit();});
+    
+    
+
+    }
+    
+    
+    /* Handle a mouse click event */
+    private void handleMouseClick() {
+
+    }
+  
 
 }
