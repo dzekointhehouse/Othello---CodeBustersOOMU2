@@ -26,7 +26,10 @@ public class GameFrame {
     private Scene mainScene;
     public Button btNewSession = new Button("Nytt Parti");
     public Button btExit = new Button("Avsluta");
-    Label head = new Label("GRAND OTHELLO");
+    Label head = new Label("GRAND OTHELLO");  
+    Label lblTurns;
+
+    
 
     /**
      * Konstruktorn initialiserar värden på de privata attributen.
@@ -37,6 +40,8 @@ public class GameFrame {
         mainframe = new BorderPane();
         options = new VBox(10);
         mainScene = new Scene(mainframe, 800, 800);
+        
+        lblTurns = new Label("Turns Left");
     }
     
     
@@ -66,7 +71,16 @@ public class GameFrame {
     public void setFrameComponents(GridPane board){
         mainframe.setRight(options);
         mainframe.setTop(head);
+        scoreBoardFrameComponent();
         mainframe.setCenter(board);
+    }
+    
+    private void scoreBoardFrameComponent(){
+        lblTurns.setMinWidth(100);
+        lblTurns.setAlignment(Pos.CENTER);
+        lblTurns.setStyle("-fx-text-fill: #FFFFFF;");
+        mainframe.setLeft(lblTurns);
+        
     }
     
     
