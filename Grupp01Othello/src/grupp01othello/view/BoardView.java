@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
-
+import grupp01othello.view.setUpGameDialog;
 /**
  * Created by optimusprime on 2016-09-27.
  */
@@ -13,7 +13,7 @@ public class BoardView {
 
     private Stage stage = new Stage();
     GridPane board = new GridPane();
-
+    
     public BoardView() {
 
     }

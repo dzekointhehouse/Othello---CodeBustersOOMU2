@@ -14,7 +14,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-
+import grupp01othello.view.setUpGameDialog;
+import static grupp01othello.view.setUpGameDialog.infoBox;
 /**
  * Created by optimusprime on 2016-10-04.
  */
@@ -60,6 +61,7 @@ public class GameFrame {
         primarystage.setTitle("OTHELLO");
         primarystage.setScene(mainScene);
         primarystage.show();
+        infoBox();
         
     }
 

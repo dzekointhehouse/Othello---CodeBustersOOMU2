@@ -17,7 +17,7 @@ public class HumanPlayer extends Player {
     * 
     */
     String getMove(){
-    
+    //Starta tråd?? ? ? ? ? ? ? ? ? ?
     
     return string;
     }
