@@ -37,7 +37,7 @@ public class GameManager {
     
 
     }
-    
+   
     
     /* Handle a mouse click event */
     private void handleMouseClick() {

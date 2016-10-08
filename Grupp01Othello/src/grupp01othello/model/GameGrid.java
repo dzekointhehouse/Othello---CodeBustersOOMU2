@@ -77,5 +77,12 @@ public class GameGrid {
          
         return white;
         }
+//        boolean isPossibleMove(/*få vart spelaren vill lägga sin pjäs: cordinat x,y*/){
+//    
+//    if(grid [x+1][y] || grid[x-1][y] || grid [x][y+1] || grid [x][y-1] || grid [x+1][y+1] || grid [x-1][y+1] || grid [x+1][y-1] != 0 )
+//        return false;
+//    
+//    return true;
+//    }
     }
 

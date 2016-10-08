@@ -13,7 +13,7 @@ public class BoardView {
 
     private Stage stage = new Stage();
     GridPane board = new GridPane();
-    
+    private int i = 0;
     public BoardView() {
 
     }
@@ -51,7 +51,7 @@ public class BoardView {
             }
             //  setStyle("-fx-border-color: #000000");
             this.setPrefSize(2000, 2000);
-
+            i = 1;
             this.setOnMouseClicked(event -> handleMouseClick());
 
         }
@@ -88,8 +88,13 @@ public class BoardView {
          * programmet.
          */
         public void handleMouseClick() {
-
+            if(i == 1 ) {
             this.getChildren().add(setBrick(2));
+            i++;
+            }else{
+                  this.getChildren().add(setBrick(1));
+                  i--;
+            }
         }
 
     }
