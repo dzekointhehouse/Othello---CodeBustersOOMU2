@@ -1,7 +1,7 @@
 package grupp01othello.controller;
 
 import grupp01othello.view.GameFrame;
-import grupp01othello.view.BoardView;
+import grupp01othello.view.GameBoard;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;
@@ -14,15 +14,15 @@ import javafx.stage.Stage;
 public class GameManager {
 
     GameFrame othelloFrame;
-    BoardView othelloBoard;
+    GameBoard othelloBoard;
 
     public GameManager(Stage primaryStage) {
        othelloFrame = new GameFrame(primaryStage);
-        othelloBoard = new BoardView();
+        othelloBoard = new GameBoard();
     }
 
     private void setupGameBoard(){
-        othelloFrame.setFrameComponents(othelloBoard.getBoard());
+        othelloFrame.setAllComponents(othelloBoard.getBoard());
         othelloFrame.InitializeMainFrame();
 
     }

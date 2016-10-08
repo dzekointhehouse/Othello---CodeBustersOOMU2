@@ -1,7 +1,5 @@
 package grupp01othello.view;
 
-import static javafx.application.Platform.exit;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,25 +22,25 @@ public class GameFrame {
     private Stage primarystage;
     private BorderPane mainframe;
     private VBox options;
+    private HBox infoBox;
     private Scene mainScene;
     public Button btNewSession = new Button("Nytt Parti");
     public Button btExit = new Button("Avsluta");
     Label head = new Label("GRAND OTHELLO");  
     Label lblTurns;
-
     
 
     /**
-     * Konstruktorn initialiserar värden på de privata attributen.
+     * Konstruktorn initialiserar attributerna vid skapande av gameFrame.
      * @param primaryStage 
      */
     public GameFrame(Stage primaryStage) {
         this.primarystage = primaryStage;
-        mainframe = new BorderPane();
-        options = new VBox(10);
-        mainScene = new Scene(mainframe, 800, 800);
-        
-        lblTurns = new Label("Turns Left");
+        this.mainframe = new BorderPane();
+        this.options = new VBox(10);
+        this.infoBox = new HBox(15);
+        this.mainScene = new Scene(mainframe, 800, 650);     
+        this.lblTurns = new Label("Turns Left");
     }
     
     
@@ -51,38 +49,64 @@ public class GameFrame {
      */
     public void InitializeMainFrame(){
         
-        Background bgWood = new Background(new BackgroundImage(new Image("image/wood.jpg"), BackgroundRepeat.SPACE, BackgroundRepeat.SPACE, BackgroundPosition.DEFAULT,
-          BackgroundSize.DEFAULT));
+        Background bgWood = new Background(new BackgroundImage(
+                new Image("image/wood.jpg"), 
+                BackgroundRepeat.SPACE, 
+                BackgroundRepeat.SPACE, 
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT));
+        
         mainframe.setBackground(bgWood);
-        options.getChildren().addAll(btNewSession, btExit);
-        options.setMinWidth(150);
-        options.setAlignment(Pos.TOP_CENTER);
+
         
         head.setFont(Font.font("Arial", FontWeight.BOLD, 60));
 
-        btNewSession.setMinWidth(100);
-        btExit.setMinWidth(100);
-        
-        primarystage.setTitle("OTHELLO");
+
+
+        primarystage.setTitle("CodeBusters");
         primarystage.setScene(mainScene);
         primarystage.show();
         infoBox();
         
     }
 
-    public void setFrameComponents(GridPane board){
-        mainframe.setRight(options);
-        mainframe.setTop(head);
-        scoreBoardFrameComponent();
+    public void setAllComponents(GridPane board){
+        setOptionsComponent();
+        setHeaderComponent();
+        setScoreComponent();
         mainframe.setCenter(board);
+        setInformationComponent();
     }
     
-    private void scoreBoardFrameComponent(){
+    private void setScoreComponent(){
         lblTurns.setMinWidth(100);
         lblTurns.setAlignment(Pos.CENTER);
         lblTurns.setStyle("-fx-text-fill: #FFFFFF;");
         mainframe.setLeft(lblTurns);
-        
+    }
+    
+    private void setOptionsComponent(){
+        options.getChildren().addAll(btNewSession, btExit);
+        options.setMinWidth(150);
+        options.setAlignment(Pos.TOP_CENTER);
+        btNewSession.setMinWidth(100);
+        btExit.setMinWidth(100);
+        mainframe.setRight(options);
+    }
+    /**
+     * Kanske ta in bool som parameter för att kunna av aktivera metoden som
+     * alternativ.
+     */
+    private void setHeaderComponent(){
+
+        head.setFont(Font.font("Arial", FontWeight.BOLD, 60));
+        head.setAlignment(Pos.CENTER);
+                mainframe.setTop(head);
+    }
+    
+    private void setInformationComponent(){
+        infoBox.setMinHeight(20);
+        mainframe.setBottom(infoBox);
     }
     
     
