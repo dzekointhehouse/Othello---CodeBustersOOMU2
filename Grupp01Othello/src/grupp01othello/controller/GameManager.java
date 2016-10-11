@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import grupp01othello.model.*;
+import static grupp01othello.view.setUpGameDialog.infoBox;
 
 
 /**
@@ -19,6 +20,7 @@ public class GameManager implements EventHandler<MouseEvent> {
 
     GameFrame othelloFrame;
     GameBoard othelloBoard;
+    String player;
     static HumanPlayer Player1;
     static GameGrid grid;
     public GameManager(Stage primaryStage) {
@@ -37,7 +39,7 @@ public class GameManager implements EventHandler<MouseEvent> {
     public void run(){
         
     setupGameBoard();
-    
+    player = infoBox();
     
     this.othelloFrame.btExit.setOnAction((ActionEvent e) -> {
     Platform.exit();});
@@ -51,6 +53,7 @@ public class GameManager implements EventHandler<MouseEvent> {
     public static void handleMouseClick(int row, int col) {
         System.out.println("row:"+row+"col:"+col);
         Player1.getMove(row,col, grid);
+  
     }
 //  
 //        /**

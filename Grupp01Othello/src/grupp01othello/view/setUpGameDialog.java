@@ -5,28 +5,42 @@
  */
 package grupp01othello.view;
 
+import java.awt.JobAttributes;
+import java.awt.JobAttributes.DialogType;
+import java.util.ArrayList;
+import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.application.Platform;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.TextInputDialog;
 /**
  *
  * @author Markus
  */
 public class setUpGameDialog {
 
-    public static void infoBox(String infoMessage, String titleBar)
-    {
+   
+   setUpGameDialog() {
         /* By specifying a null headerMessage String, we cause the dialog to
            not have a header */
         infoBox();
     }
 
-    public static void infoBox()
-    {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Val Av spelare");
-        alert.setHeaderText("Othello");
-        alert.setContentText("Vad heter spelaren?");
-        alert.showAndWait();
-    }
+    public static String infoBox() {
+        String player;
+    TextInputDialog dialog = new TextInputDialog("Player");
+        dialog.setTitle("Which Player?");
+        dialog.setHeaderText("Start OthelloGame");
+        dialog.setContentText("Please enter PlayerType: Human, local or remote ");
+
+// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            System.out.println(" Player is: " + result.get());
+        }
+        player = result.get();
+    return player;
+}
 }

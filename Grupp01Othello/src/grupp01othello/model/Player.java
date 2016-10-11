@@ -38,4 +38,5 @@ import grupp01othello.view.GameBoard;
      * @return 
     */
      abstract int getMove(int row,int col, GameGrid grid);
+     
 }

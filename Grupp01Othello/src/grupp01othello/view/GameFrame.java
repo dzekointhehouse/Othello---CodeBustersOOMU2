@@ -64,7 +64,7 @@ public class GameFrame {
         primarystage.setTitle("CodeBusters");
         primarystage.setScene(mainScene);
         primarystage.show();
-        infoBox();
+        
 
     }
 
