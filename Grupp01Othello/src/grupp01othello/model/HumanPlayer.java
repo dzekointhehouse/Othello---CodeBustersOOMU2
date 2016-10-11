@@ -5,7 +5,7 @@
  */
 package grupp01othello.model;
 
-import static grupp01othello.model.GameGrid.isPossibleMove;
+import grupp01othello.view.GameBoard;
 
 /**
  *
@@ -19,8 +19,8 @@ public class HumanPlayer extends Player {
     * 
     */
     @Override
-   public int getMove(int row, int col) {
-     if(!isPossibleMove(row,col))
+   public int getMove(int row, int col, GameGrid grid) {
+     if(!grid.isPossibleMove(row, col))
          System.out.println("false");
      return 0;
     }

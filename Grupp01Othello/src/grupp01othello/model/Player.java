@@ -6,6 +6,7 @@
 package grupp01othello.model;
 import grupp01othello.controller.GameManager;
 import grupp01othello.model.GameGrid;
+import grupp01othello.view.GameBoard;
 /**
  *
  * @author Markus
@@ -36,5 +37,5 @@ import grupp01othello.model.GameGrid;
      * @param col
      * @return 
     */
-     abstract int getMove(int row,int col);
+     abstract int getMove(int row,int col, GameGrid grid);
 }

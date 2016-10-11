@@ -50,7 +50,7 @@ public class GameManager implements EventHandler<MouseEvent> {
     /* Handle a mouse click event */
     public static void handleMouseClick(int row, int col) {
         System.out.println("row:"+row+"col:"+col);
-        Player1.getMove(row,col);
+        Player1.getMove(row,col, grid);
     }
 //  
 //        /**

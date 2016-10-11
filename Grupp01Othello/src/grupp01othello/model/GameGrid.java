@@ -83,14 +83,9 @@ public class GameGrid {
         return white;
     }
 
-    public static boolean isPossibleMove(int row, int col) {
+    public boolean isPossibleMove(int row, int col) {
 
-        //if ((grid[x + 1][y]) || (grid[x - 1][y]) || (grid[x][y + 1]) || (grid[x][y - 1]) || (grid[x + 1][y + 1]) || (grid[x - 1][y + 1]) ||(grid[x + 1][y - 1]) != 0)
-        if(grid[row+1][col] != 0 /*|| (grid[row-1][col])!=0 || (grid[row][col+1]) !=0 || (grid[row][col-1]) !=0*/ ){
-        return true;
-        }
-        
-        return false;
+        return grid[row+1][col] != 0 || (grid[row-1][col])!=0 || (grid[row][col+1]) !=0 || (grid[row][col-1]) !=0;
         
     }
 }
