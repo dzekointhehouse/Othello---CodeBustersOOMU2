@@ -4,16 +4,17 @@
  * and open the template in the editor.
  */
 package grupp01othello.model;
-
+import grupp01othello.controller.GameManager;
+import grupp01othello.model.GameGrid;
 /**
  *
  * @author Markus
  */
-public abstract class Player {
+ abstract public class Player {
     private String name;
     private int markörID;
     
-  
+    
     String getName(){
     return name;
     }
@@ -22,12 +23,18 @@ public abstract class Player {
       this.name = name;
     
     }
-    
+    int getID(){
+    return markörID;
+    }
+    void setID(int markörID){
+    this.markörID = markörID;
+    }
     /**
     * getMove returnerar draget som spelaren vill göra 
     * 
+     * @param row
+     * @param col
+     * @return 
     */
-     String getMove(){
-    return name;
-    }
+     abstract int getMove(int row,int col);
 }

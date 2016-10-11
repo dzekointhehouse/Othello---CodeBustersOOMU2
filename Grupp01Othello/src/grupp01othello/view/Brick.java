@@ -8,7 +8,7 @@ package grupp01othello.view;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
-
+import static grupp01othello.controller.GameManager.handleMouseClick;
 /**
  *
  * @author optimusprime
@@ -18,9 +18,10 @@ import javafx.scene.shape.Ellipse;
 
         // Token used for this cell
         private int token = 0; // representerar att token (rutan är tom)
-
+        int row,col;
         public Brick(int row, int col) {
-
+            this.row = row;
+            this.col = col;
             if ((row + col) % 2 == 0) {
                 setStyle("-fx-background-color: #2b6235");
             } else {
@@ -29,7 +30,7 @@ import javafx.scene.shape.Ellipse;
             //  setStyle("-fx-border-color: #000000");
             this.setPrefSize(2000, 2000);
 
-            this.setOnMouseClicked(event -> handleMouseClick());
+            this.setOnMouseClicked(event -> handleMouseClick(row,col));
 
         }
 
@@ -61,17 +62,6 @@ import javafx.scene.shape.Ellipse;
             
             return brick;
         }
-
-
-        /**
-         * detta hanteras inte än på rätt sätt. men används nu för att testa
-         * programmet.
-         */
-        public void handleMouseClick() {
-
-            this.getChildren().add(setBrick(2));
-        }
-
     }
 
 

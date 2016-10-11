@@ -5,21 +5,23 @@
  */
 package grupp01othello.model;
 
+import static grupp01othello.model.GameGrid.isPossibleMove;
+
 /**
  *
  * @author Markus
  */
 public class HumanPlayer extends Player {
-    String string;
+    public HumanPlayer(){}
     
     /**
     * getMove returnerar draget som spelaren vill göra 
     * 
     */
-    String getMove(){
-    //Starta tråd?? ? ? ? ? ? ? ? ? ?
-    
-    return string;
+    @Override
+   public int getMove(int row, int col) {
+     if(!isPossibleMove(row,col))
+         System.out.println("false");
+     return 0;
     }
-    
 }
