@@ -5,32 +5,33 @@
  */
 package grupp01othello.model;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javax.security.auth.Subject;
+import grupp01othello.view.GridObserver;
+import java.util.ArrayList;
+
 
 
 /**
  *
  * @author Markus
  */
-public class GameGrid {
+public class GameGrid implements Subject{
 
     private int[][] grid;
+    private ArrayList<GridObserver> observer;
 
     /**
      * Konstruktorn initialiserar game griden.
      */
     public GameGrid() {
         grid = new int[8][8];
-        initiateGameGrid();
+        observer = new ArrayList<GridObserver>();
     }
 
     /**
      * initGrid initierar matrisen med 0 i alla rutor sedan så sätter den dom 4
      * mitt i matrisen till svart elr vit som start på hela spelet.
      */
-    private void initiateGameGrid() {
+    public void initiateGameGrid() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 grid[row][col] = 0;
@@ -41,6 +42,8 @@ public class GameGrid {
         grid[3][3] = 1;
         grid[4][3] = 2;
         grid[4][4] = 1;
+        
+        notifyObserver(); // notifierar observer så brädan får sina initial värden.
     }
 //      updateBoard(){
 //          
@@ -97,5 +100,34 @@ public class GameGrid {
         return grid[row+1][col] != 0 || (grid[row-1][col])!=0 || (grid[row][col+1]) !=0 || (grid[row][col-1]) !=0;
         
     }
+
+    @Override
+    public void register(GridObserver newObserver) {
+        
+        observer.add(newObserver);
+    }
+
+    @Override
+    public void unregister(GridObserver deleteObserver) {
+        
+        observer.remove(deleteObserver);
+        
+    }
+
+    @Override
+    public void notifyObserver() {
+        
+        for(GridObserver observer : observer){
+            
+            observer.update(grid); // skickar uppdaterade spel griden till observers.
+        }
+    }
+  
+   public void updateGameGrid(int row, int col, int playerID){
+       
+       this.grid[row][col] = playerID;
+       notifyObserver();
+   }
+
     
 }

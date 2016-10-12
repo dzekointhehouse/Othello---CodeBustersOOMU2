@@ -5,19 +5,20 @@
  */
 package grupp01othello.controller;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
  * @author optimusprime
  */
-public class ExitHandler implements EventHandler<ActionEvent>{
+public class PlayerMoveHandler{
 
-    @Override
-    public void handle(ActionEvent event) {
-        Platform.exit();
-    }
+    private int row, col;
     
+    public void GetCoordinates(int row, int col){
+        this.row = row;
+        this.col = col;
+            System.out.print("row: " + row + " col: " + col);
+    }
 }

@@ -2,63 +2,55 @@ package grupp01othello.controller;
 
 import grupp01othello.view.GameFrame;
 import grupp01othello.view.GameBoard;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import grupp01othello.model.*;
-import static grupp01othello.view.setUpGameDialog.infoBox;
 
+import static grupp01othello.view.setUpGameDialog.infoBox;
 
 /**
  * Created by optimusprime on 2016-09-27.
  */
 public class GameManager {
 
-    GameFrame othelloFrame;
-    GameBoard othelloBoard;
     String player;
     static HumanPlayer Player1;
-    static GameGrid grid;
+    
+    GameFrame gameframe;
+
+    GameGrid gamegrid = new GameGrid(); // Subject
+    GameBoard gameboard = new GameBoard(gamegrid); // Observer
+
     public GameManager(Stage primaryStage) {
         this.Player1 = new HumanPlayer();
-       othelloFrame = new GameFrame(primaryStage);
-        othelloBoard = new GameBoard();
-         grid = new GameGrid();
-    }
-
-    private void setupGameBoard(){
-        othelloFrame.setAllComponents(othelloBoard.getBoard());
-        othelloFrame.InitializeMainFrame();
-
-    }
-    
-    public void run(){
+        gameframe = new GameFrame(primaryStage);
         
-    setupGameBoard();
-    player = infoBox();
-   }
-   
-    
+    }
+
+    private void setupGameBoard() {
+        gameframe.setAllComponents(gameboard.getBoard());
+        gameframe.showFrame();
+
+    }
+
+    public void run() {
+
+        player = infoBox();
+        setupGameBoard();
+        this.gamegrid.initiateGameGrid();
+        this.gamegrid.updateGameGrid(3, 4, 0); //uppdaterar gamegrid med dessa värden
+
+    }
+
     /* Handle a mouse click event */
     public static void handleMouseClick(int row, int col) {
-        
+
         // 1. isLegal - om den valda rutan är laglig - > setNextMove(row,col);
         // 2. getNextMove
         // 3. skicka det till griden?.. uppdatera board.
-        System.out.println("row:"+row+"col:"+col);
-        Player1.getMove(row,col, grid);
-  
+        System.out.println("row:" + row + "col:" + col);
+
+       // Player1.getMove(row, col, grid);
+
     }
-//  
-//        /**
-//         * detta hanteras inte än på rätt sätt. men används nu för att testa
-//         * programmet.
-//         */
-//        public void handleMouseClick() {
-//
-//            this.getChildren().add(setBrick(2));
-//        }
 
 }

@@ -51,7 +51,7 @@ public class GameFrame {
     /**
      * Skapar huvud pane som skall vara igån vid hela programmets exkevering.
      */
-    public void InitializeMainFrame() {
+    public void showFrame() {
 
         Background bgWood = new Background(new BackgroundImage(
                 new Image("image/wood.jpg"),
