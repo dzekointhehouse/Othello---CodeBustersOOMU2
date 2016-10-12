@@ -1,5 +1,6 @@
 package grupp01othello.view;
 
+import grupp01othello.controller.ExitHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,8 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import grupp01othello.view.setUpGameDialog;
-import static grupp01othello.view.setUpGameDialog.infoBox;
+
 
 /**
  * Created by optimusprime on 2016-10-04.
@@ -43,6 +43,9 @@ public class GameFrame {
         this.infoBox = new HBox(15);
         this.mainScene = new Scene(mainframe, 800, 650);
         this.lblTurns = new Label("Turns Left");
+        
+        ExitButton();
+        
     }
 
     /**
@@ -106,6 +109,13 @@ public class GameFrame {
     private void setInformationComponent() {
         infoBox.setMinHeight(20);
         mainframe.setBottom(infoBox);
+    }
+    
+    private void ExitButton(){
+        this.btExit.setOnAction(e -> {
+           ExitHandler exit = new ExitHandler();
+           exit.handle(e);
+        });
     }
 
 }

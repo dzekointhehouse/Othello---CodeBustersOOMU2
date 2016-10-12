@@ -5,15 +5,7 @@
  */
 package grupp01othello.view;
 
-import java.awt.JobAttributes;
-import java.awt.JobAttributes.DialogType;
-import java.util.ArrayList;
 import java.util.Optional;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.application.Platform;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.TextInputDialog;
 /**
  *

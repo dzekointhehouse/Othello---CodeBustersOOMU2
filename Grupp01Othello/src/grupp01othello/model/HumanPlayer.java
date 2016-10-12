@@ -12,11 +12,15 @@ import grupp01othello.view.GameBoard;
  * @author Markus
  */
 public class HumanPlayer extends Player {
+    
+    // Konstruktor: initialisera spelare med id?
     public HumanPlayer(){}
     
     /**
     * getMove returnerar draget som spelaren vill göra 
     * 
+     * @param grid
+     * @return 
     */
     @Override
    public int getMove(int row, int col, GameGrid grid) {

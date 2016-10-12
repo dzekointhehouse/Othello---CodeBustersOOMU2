@@ -5,23 +5,32 @@
  */
 package grupp01othello.model;
 
-import grupp01othello.controller.GameManager;
-import grupp01othello.model.Player;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javax.security.auth.Subject;
+
+
 /**
  *
  * @author Markus
  */
 public class GameGrid {
 
-  static  int grid[][] = new int[8][8];
- public  GameGrid(){
-  initGrid();
-  }
+    private int[][] grid;
+
+    /**
+     * Konstruktorn initialiserar game griden.
+     */
+    public GameGrid() {
+        grid = new int[8][8];
+        initiateGameGrid();
+    }
+
     /**
      * initGrid initierar matrisen med 0 i alla rutor sedan så sätter den dom 4
      * mitt i matrisen till svart elr vit som start på hela spelet.
      */
-    void initGrid() {
+    private void initiateGameGrid() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 grid[row][col] = 0;
@@ -44,9 +53,9 @@ public class GameGrid {
      */
     boolean boardIsFull() {
         int flag = 0;
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                if (grid[x][y] != 0) {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (grid[row][col] != 0) {
                     flag = 1;
                 }
             }
@@ -88,4 +97,5 @@ public class GameGrid {
         return grid[row+1][col] != 0 || (grid[row-1][col])!=0 || (grid[row][col+1]) !=0 || (grid[row][col-1]) !=0;
         
     }
+    
 }

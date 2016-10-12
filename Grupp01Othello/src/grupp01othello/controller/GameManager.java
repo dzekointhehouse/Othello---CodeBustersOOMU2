@@ -6,8 +6,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import grupp01othello.model.*;
 import static grupp01othello.view.setUpGameDialog.infoBox;
@@ -16,7 +14,7 @@ import static grupp01othello.view.setUpGameDialog.infoBox;
 /**
  * Created by optimusprime on 2016-09-27.
  */
-public class GameManager implements EventHandler<MouseEvent> {
+public class GameManager {
 
     GameFrame othelloFrame;
     GameBoard othelloBoard;
@@ -40,17 +38,15 @@ public class GameManager implements EventHandler<MouseEvent> {
         
     setupGameBoard();
     player = infoBox();
-    
-    this.othelloFrame.btExit.setOnAction((ActionEvent e) -> {
-    Platform.exit();});
-    
-    
-
-    }
+   }
    
     
     /* Handle a mouse click event */
     public static void handleMouseClick(int row, int col) {
+        
+        // 1. isLegal - om den valda rutan är laglig - > setNextMove(row,col);
+        // 2. getNextMove
+        // 3. skicka det till griden?.. uppdatera board.
         System.out.println("row:"+row+"col:"+col);
         Player1.getMove(row,col, grid);
   
@@ -64,10 +60,5 @@ public class GameManager implements EventHandler<MouseEvent> {
 //
 //            this.getChildren().add(setBrick(2));
 //        }
-
-    @Override
-    public void handle(MouseEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }
