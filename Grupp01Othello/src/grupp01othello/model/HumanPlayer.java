@@ -12,20 +12,30 @@ import grupp01othello.view.GameBoard;
  * @author Markus
  */
 public class HumanPlayer extends Player {
-    
+ 
     // Konstruktor: initialisera spelare med id?
-    public HumanPlayer(){}
+    public HumanPlayer(int markerID, String playerName){
+        super.setID(markerID);
+        super.setName(playerName);
+    }
     
     /**
     * getMove returnerar draget som spelaren vill göra 
     * 
      * @param grid
      * @return 
+     * int, inte void
     */
-    @Override
-   public int getMove(int row, int col, GameGrid grid) {
-     if(!grid.isPossibleMove(row, col))
-         System.out.println("false");
-     return 0;
+   
+//   public void getMove(int row, int col, GameGrid grid) {
+//     if(!grid.isPossibleMove(row, col))
+//         System.out.println("false");
+//          
+//    }
+//}
+ public void getMove() {
+        
+         System.out.println("getMove: row: "+row+ "col: "+ col);
+                   
     }
 }

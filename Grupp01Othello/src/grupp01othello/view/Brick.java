@@ -50,7 +50,7 @@ public class Brick extends Pane {
         if (token == 1) {
             brick.setFill(Color.BLACK);
             brick.setStroke(Color.WHITE);
-        } if (token == 2) {
+        }else if (token == 2) {
             brick.setFill(Color.WHITE);
             brick.setStroke(Color.BLACK);
         } else{
@@ -66,12 +66,14 @@ public class Brick extends Pane {
         
         this.setOnMouseClicked(event -> {
             PlayerMoveHandler brickHandler = new PlayerMoveHandler();
-            brickHandler.GetCoordinates(row, col);
+            brickHandler.getCoordinates(row, col);
+            
             
         });
         
         
     }
+    
 }
 
 

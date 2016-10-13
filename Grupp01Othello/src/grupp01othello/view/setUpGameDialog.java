@@ -14,13 +14,14 @@ import javafx.scene.control.TextInputDialog;
 public class setUpGameDialog {
 
    
-   setUpGameDialog() {
+  public setUpGameDialog() {
         /* By specifying a null headerMessage String, we cause the dialog to
            not have a header */
         infoBox();
+        infoBoxName();  
     }
 
-    public static String infoBox() {
+    public String infoBox() {
         String player;
     TextInputDialog dialog = new TextInputDialog("Player");
         dialog.setTitle("Which Player?");
@@ -33,6 +34,24 @@ public class setUpGameDialog {
             System.out.println(" Player is: " + result.get());
         }
         player = result.get();
+        
     return player;
+}
+
+   public String infoBoxName() {
+        String name;
+    TextInputDialog dialog = new TextInputDialog("Player");
+        dialog.setTitle("what is the name for Player?");
+        dialog.setHeaderText("Start OthelloGame");
+        dialog.setContentText("Please enter name for player");
+
+// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            System.out.println(" Player is: " + result.get());
+        }
+        name = result.get();
+        
+    return name;
 }
 }

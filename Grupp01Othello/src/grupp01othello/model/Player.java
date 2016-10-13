@@ -4,31 +4,29 @@
  * and open the template in the editor.
  */
 package grupp01othello.model;
-
+import grupp01othello.controller.*;
 import grupp01othello.model.GameGrid;
 /**
  *
  * @author Markus
  */
- abstract public class Player {
-    private String name;
-    private int markerID;
+ 
+public abstract class Player extends PlayerMoveHandler {
+    protected String name;
+    protected int markerID;
+    PlayerMoveHandler handler = new PlayerMoveHandler();
+    int row,col;
     
+    public Player(){
     
-    String getName(){
-    return name;
     }
-   
     void setName(String name){
-      this.name = name;
-    
-    }
-    int getID(){
-    return markerID;
+    this.name = name;
     }
     void setID(int markerID){
     this.markerID = markerID;
     }
+   
     /**
     * getMove returnerar draget som spelaren vill göra 
     * 
@@ -36,6 +34,16 @@ import grupp01othello.model.GameGrid;
      * @param col
      * @return 
     */
-     abstract int getMove(int row,int col, GameGrid grid);
+//    setPlayer(String name, int markerID){
+//    if(player.equals("Human")){
+//    player = new HumanPlayer();
+//    }
+    
+    //}
+     public void setMove(){
+    this.row = handler.getRow();
+    this.col = handler.getCol();
+    }
+    public abstract void getMove();
      
 }

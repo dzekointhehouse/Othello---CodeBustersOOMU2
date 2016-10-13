@@ -1,5 +1,4 @@
 import grupp01othello.controller.GameManager;
-import static grupp01othello.view.setUpGameDialog.infoBox;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -13,10 +12,11 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         GameManager othello = new GameManager(primaryStage);
-        
+        //start (main) tråd 
+
         othello.run();
-        
-        
+       
+       
     }
 
     public static void main(String[] args){

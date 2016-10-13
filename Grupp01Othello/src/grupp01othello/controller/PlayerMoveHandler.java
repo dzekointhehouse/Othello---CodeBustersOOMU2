@@ -12,14 +12,15 @@ import javafx.scene.input.MouseEvent;
  *
  * @author optimusprime
  */
-public class PlayerMoveHandler{
+public class PlayerMoveHandler  {
 
     private int row, col;
     
-    public void GetCoordinates(int row, int col){
+    public void getCoordinates(int row, int col){
         this.row = row;
         this.col = col;
-            System.out.print("row: " + row + " col: " + col);
+                
+          System.out.print("row: " + row + " col: " + col);
     }
     
     public int getRow(){

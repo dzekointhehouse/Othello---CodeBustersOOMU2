@@ -45,10 +45,7 @@ public class GameGrid implements Subject{
         
         notifyObserver(); // notifierar observer så brädan får sina initial värden.
     }
-//      updateBoard(){
-//          
-//          
-//      }
+
 
     /**
      * boardIsFull loopar genom alla platser i matrisen och returnerar true om
