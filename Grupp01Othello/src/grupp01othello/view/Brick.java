@@ -9,7 +9,6 @@ import grupp01othello.controller.PlayerMoveHandler;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
-import static grupp01othello.controller.GameManager.handleMouseClick;
 /**
  *
  * @author optimusprime
@@ -51,9 +50,12 @@ public class Brick extends Pane {
         if (token == 1) {
             brick.setFill(Color.BLACK);
             brick.setStroke(Color.WHITE);
-        } else {
+        } if (token == 2) {
             brick.setFill(Color.WHITE);
             brick.setStroke(Color.BLACK);
+        } else{
+            brick.setFill(Color.TRANSPARENT);
+            brick.setStroke(Color.TRANSPARENT);
         }
 
         return brick;       

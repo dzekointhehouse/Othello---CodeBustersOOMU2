@@ -21,4 +21,12 @@ public class PlayerMoveHandler{
         this.col = col;
             System.out.print("row: " + row + " col: " + col);
     }
+    
+    public int getRow(){
+        return this.row;
+    }
+    
+    public int getCol(){
+        return this.col;
+    }
 }

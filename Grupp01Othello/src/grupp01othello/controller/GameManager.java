@@ -37,19 +37,7 @@ public class GameManager {
         player = infoBox();
         setupGameBoard();
         this.gamegrid.initiateGameGrid();
-        this.gamegrid.updateGameGrid(3, 4, 0); //uppdaterar gamegrid med dessa värden
-
-    }
-
-    /* Handle a mouse click event */
-    public static void handleMouseClick(int row, int col) {
-
-        // 1. isLegal - om den valda rutan är laglig - > setNextMove(row,col);
-        // 2. getNextMove
-        // 3. skicka det till griden?.. uppdatera board.
-        System.out.println("row:" + row + "col:" + col);
-
-       // Player1.getMove(row, col, grid);
+       // this.gamegrid.updateGameGrid(3, 4, 0); //uppdaterar gamegrid med dessa värden
 
     }
 

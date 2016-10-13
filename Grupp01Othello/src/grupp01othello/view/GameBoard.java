@@ -12,15 +12,18 @@ public class GameBoard implements GridObserver {
 
     private Stage stage;
     private GridPane board;
-    Brick[][] brick = new Brick[8][8];
+    Brick[][] brick;
     
     private Subject grid; // where the observed subject instance is kept.
 
     public GameBoard(Subject gamegrid) {
+        
         stage = new Stage();
         board = new GridPane();
+        brick = new Brick[8][8];
         createBoard();
         
+        /* lägger till GameGrid instansen och registrerar sig på den som observer. */
         this.grid = gamegrid;
         grid.register(this); // registrerar denna klassen som en observer till gamegrid.
         
@@ -71,9 +74,9 @@ public class GameBoard implements GridObserver {
     public void update(int[][] gameGrid) {
 
                 for (int row = 0; row < 8; row++) {
-                    System.out.println();
+
             for (int col = 0; col < 8; col++) {
-               System.out.print(" " + gameGrid[row][col] + " ");
+              brick[row][col].getChildren().add(brick[row][col].setBrick(gameGrid[row][col]));
             }
 
         }
