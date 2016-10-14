@@ -6,13 +6,16 @@
 package grupp01othello.model;
 
 import grupp01othello.view.GameBoard;
+import java.util.EventListener;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 /**
  *
  * @author Markus
  */
-public class HumanPlayer extends Player {
- 
+public class HumanPlayer extends Player implements EventListener {
+    
     private Move move;
     
     // Konstruktor: initialisera spelare med id?
@@ -22,13 +25,11 @@ public class HumanPlayer extends Player {
         move = new Move(-1,-1);
     }
     
-
-
-
     public void setMove(int row, int col) {
         // if( row && col == possible move)
       //  System.out.println("row: " + row + " col: " + col);
         move.setMove(row, col);
+        this.hasMadeMoveProperty().set(true);
     }
       
   boolean madeAMove(){
@@ -40,7 +41,8 @@ public class HumanPlayer extends Player {
 
     @Override
     public Move getMove() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.hasMadeMoveProperty().set(false);
+        return move;
     }
   
    public void getMoveTest(){

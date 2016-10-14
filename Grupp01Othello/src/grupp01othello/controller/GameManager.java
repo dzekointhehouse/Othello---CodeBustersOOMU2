@@ -40,8 +40,16 @@ public class GameManager implements Runnable {
         gameboard.handleGameBoard(player1);
 
         //System.out.println(player1);
-        player1.getMoveTest();
-      // gamegrid.updateGameGrid(move, 1);
+        player1.hasMadeMoveProperty().addListener(e -> {
+            if(player1.hasMadeMoveProperty().get())
+                handleMove(player1, gamegrid);
+        });
+        //player1.getMoveTest();
+    }
+    
+    public void handleMove(Player player, GameGrid gameGrid){
+        Move move = player.getMove();
+        gamegrid.updateGameGrid(move, 1);
     }
 
 }
