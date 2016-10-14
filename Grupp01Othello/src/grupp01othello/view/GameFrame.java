@@ -22,13 +22,16 @@ public class GameFrame {
 
     private Stage primarystage;
     private BorderPane mainframe;
-    private VBox options;
+    private VBox optionBox;
     private HBox infoBox;
+    private StackPane topPane;
     private Scene mainScene;
-    public Button btNewSession;
-    public Button btExit = new Button("Avsluta");
-    Label head = new Label("GRAND OTHELLO");
-    Label lblTurns;
+    private Button btNewSession;
+    private Button btExit = new Button("Avsluta");
+    private Label lblHeader = new Label("GRAND OTHELLO");
+    private Label lblTurns;
+
+    private int minWidth = 800, minHeight = 650;
 
     /**
      * Konstruktorn initialiserar attributerna vid skapande av gameFrame.
@@ -36,12 +39,14 @@ public class GameFrame {
      * @param primaryStage
      */
     public GameFrame(Stage primaryStage) {
+
         this.btNewSession = new Button("Nytt Parti");
         this.primarystage = primaryStage;
         this.mainframe = new BorderPane();
-        this.options = new VBox(10);
+        this.optionBox = new VBox(10);
         this.infoBox = new HBox(15);
-        this.mainScene = new Scene(mainframe, 800, 650);
+        this.topPane = new StackPane();
+        this.mainScene = new Scene(mainframe, minWidth, minHeight);
         this.lblTurns = new Label("Turns Left");
         
         ExitButton();
@@ -53,17 +58,17 @@ public class GameFrame {
      */
     public void showFrame() {
 
-        Background bgWood = new Background(new BackgroundImage(
-                new Image("image/wood.jpg"),
+        Background background = new Background(new BackgroundImage(
+                new Image("image/minions1.jpeg"),
                 BackgroundRepeat.SPACE,
                 BackgroundRepeat.SPACE,
                 BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT));
 
-        mainframe.setBackground(bgWood);
+        mainframe.setBackground(background);
 
-        head.setFont(Font.font("Arial", FontWeight.BOLD, 60));
-
+        primarystage.setMinHeight(minHeight);
+        primarystage.setMinWidth(minWidth);
         primarystage.setTitle("CodeBusters");
         primarystage.setScene(mainScene);
         primarystage.show();
@@ -80,19 +85,19 @@ public class GameFrame {
     }
 
     private void setScoreComponent() {
-        lblTurns.setMinWidth(100);
+        lblTurns.setMinWidth(150);
         lblTurns.setAlignment(Pos.CENTER);
         lblTurns.setStyle("-fx-text-fill: #FFFFFF;");
         mainframe.setLeft(lblTurns);
     }
 
     private void setOptionsComponent() {
-        options.getChildren().addAll(btNewSession, btExit);
-        options.setMinWidth(150);
-        options.setAlignment(Pos.TOP_CENTER);
+        optionBox.getChildren().addAll(btNewSession, btExit);
+        optionBox.setMinWidth(150);
+        optionBox.setAlignment(Pos.TOP_CENTER);
         btNewSession.setMinWidth(100);
         btExit.setMinWidth(100);
-        mainframe.setRight(options);
+        mainframe.setRight(optionBox);
     }
 
     /**
@@ -101,9 +106,12 @@ public class GameFrame {
      */
     private void setHeaderComponent() {
 
-        head.setFont(Font.font("Arial", FontWeight.BOLD, 60));
-        head.setAlignment(Pos.CENTER);
-        mainframe.setTop(head);
+        lblHeader.setFont(Font.font("Arial", FontWeight.BOLD, 60));
+        lblHeader.setStyle("-fx-text-fill: #5c0b00;");
+        lblHeader.setAlignment(Pos.CENTER);
+        topPane.getChildren().add(lblHeader);
+        topPane.setAlignment(Pos.CENTER);
+        mainframe.setTop(topPane);
     }
 
     private void setInformationComponent() {

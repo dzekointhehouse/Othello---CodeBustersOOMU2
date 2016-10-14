@@ -13,29 +13,39 @@ import grupp01othello.view.GameBoard;
  */
 public class HumanPlayer extends Player {
  
+    private Move move;
+    
     // Konstruktor: initialisera spelare med id?
     public HumanPlayer(int markerID, String playerName){
         super.setID(markerID);
         super.setName(playerName);
+        move = new Move(-1,-1);
     }
     
-    /**
-    * getMove returnerar draget som spelaren vill göra 
-    * 
-     * @param grid
-     * @return 
-     * int, inte void
-    */
-   
-//   public void getMove(int row, int col, GameGrid grid) {
-//     if(!grid.isPossibleMove(row, col))
-//         System.out.println("false");
-//          
-//    }
-//}
- public void getMove() {
-        
-         System.out.println("getMove: row: "+row+ "col: "+ col);
-                   
+
+
+
+    public void setMove(int row, int col) {
+        // if( row && col == possible move)
+      //  System.out.println("row: " + row + " col: " + col);
+        move.setMove(row, col);
     }
+      
+  boolean madeAMove(){
+      
+      if (move.getRow() > -1 && move.getColumn() > -1)
+          return true;
+      return false;
+  }
+
+    @Override
+    public Move getMove() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+  
+   public void getMoveTest(){
+       
+       move.setMove(row, col);
+       System.out.println();
+   }
 }

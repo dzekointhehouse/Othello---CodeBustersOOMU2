@@ -1,7 +1,7 @@
 package grupp01othello.view;
 
+import grupp01othello.model.Player;
 import grupp01othello.model.Subject;
-import java.util.Observer;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -12,21 +12,23 @@ public class GameBoard implements GridObserver {
 
     private Stage stage;
     private GridPane board;
-    Brick[][] brick;
-    
+    grupp01othello.view.BoardCell[][] brick;
+
     private Subject grid; // where the observed subject instance is kept.
 
     public GameBoard(Subject gamegrid) {
-        
+
         stage = new Stage();
         board = new GridPane();
-        brick = new Brick[8][8];
-        createBoard();
-        
+        brick = new grupp01othello.view.BoardCell[8][8];
+
+
         /* lägger till GameGrid instansen och registrerar sig på den som observer. */
         this.grid = gamegrid;
         grid.register(this); // registrerar denna klassen som en observer till gamegrid.
         
+        InitializeGameBoard();
+
     }
 
 
@@ -37,19 +39,19 @@ public class GameBoard implements GridObserver {
      *
      * @return GridPane
      */
-    private void createBoard() {
+    public void InitializeGameBoard() {
 
 
-        //lägger in celler
+
         for (int row = 0; row < 8; row++) {
-            
+
             for (int col = 0; col < 8; col++) {
-                board.add(brick[row][col] = new Brick(row, col), col, row);
-                       
+                board.add(brick[row][col] = new grupp01othello.view.BoardCell(row, col), col, row); //lägger in celler
+
                 if ((row + col) % 2 == 0) {
-                    brick[row][col].setStyle("-fx-background-color: #2b6235");
+                    brick[row][col].setStyle("-fx-background-color: rgba(162, 150, 7, 0.75)");
                 } else {
-                    brick[row][col].setStyle("-fx-background-color: #023a00");
+                    brick[row][col].setStyle("-fx-background-color: #1e303a");
                 }
 
             }
@@ -58,7 +60,7 @@ public class GameBoard implements GridObserver {
         board.setGridLinesVisible(true);
 
     }
-                  
+
 
     /**
      * Hämtar den färdiga brädan så att man kan sätta in den i en annan pane,
@@ -74,19 +76,26 @@ public class GameBoard implements GridObserver {
     public void update(int[][] gameGrid) {
 
                 for (int row = 0; row < 8; row++) {
-
             for (int col = 0; col < 8; col++) {
               brick[row][col].getChildren().add(brick[row][col].setBrick(gameGrid[row][col]));
             }
-
         }
 
+    }
+    
+        public void handleGameBoard(Player player) {
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                brick[row][col].brickClicked(player);
+            }
+        }
 
     }
 
 
 
-    
-    
-    
+
+
+
 }

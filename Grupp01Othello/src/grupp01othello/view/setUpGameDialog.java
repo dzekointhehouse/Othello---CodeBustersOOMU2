@@ -17,8 +17,6 @@ public class setUpGameDialog {
   public setUpGameDialog() {
         /* By specifying a null headerMessage String, we cause the dialog to
            not have a header */
-        infoBox();
-        infoBoxName();  
     }
 
     public String infoBox() {

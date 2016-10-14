@@ -11,10 +11,10 @@ import grupp01othello.model.GameGrid;
  * @author Markus
  */
  
-public abstract class Player extends PlayerMoveHandler {
+public abstract class Player {
+    
     protected String name;
-    protected int markerID;
-    PlayerMoveHandler handler = new PlayerMoveHandler();
+    public int markerID;
     int row,col;
     
     public Player(){
@@ -27,23 +27,11 @@ public abstract class Player extends PlayerMoveHandler {
     this.markerID = markerID;
     }
    
-    /**
-    * getMove returnerar draget som spelaren vill göra 
-    * 
-     * @param row
-     * @param col
-     * @return 
-    */
-//    setPlayer(String name, int markerID){
-//    if(player.equals("Human")){
-//    player = new HumanPlayer();
-//    }
-    
-    //}
-     public void setMove(){
-    this.row = handler.getRow();
-    this.col = handler.getCol();
-    }
-    public abstract void getMove();
+
+     public abstract void setMove(int row, int col);
      
+    public abstract Move getMove();
+    
+       public abstract void getMoveTest();
+    
 }

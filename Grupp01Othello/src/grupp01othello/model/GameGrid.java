@@ -25,6 +25,7 @@ public class GameGrid implements Subject{
     public GameGrid() {
         grid = new int[8][8];
         observer = new ArrayList<GridObserver>();
+
     }
 
     /**
@@ -120,9 +121,9 @@ public class GameGrid implements Subject{
         }
     }
   
-   public void updateGameGrid(int row, int col, int playerID){
+   public void updateGameGrid(Move move, int playerID){
        
-       this.grid[row][col] = playerID;
+       this.grid[move.getRow()][move.getColumn()] = playerID;
        notifyObserver();
    }
 

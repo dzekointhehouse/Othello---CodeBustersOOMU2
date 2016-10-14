@@ -4,34 +4,42 @@
  * and open the template in the editor.
  */
 package grupp01othello.controller;
+
 import grupp01othello.model.HumanPlayer;
 import grupp01othello.model.Player;
 import grupp01othello.view.setUpGameDialog;
+
 /**
  *
  * @author Markus
  */
-public class PlayerManager   {
-    
-    private static int id = 1;
+public class PlayerManager {
+
     setUpGameDialog dialog = new setUpGameDialog();
     Player player1, player2;
-    
-    PlayerManager(){
-  
-           String typePlayer,name;
-      for(int i=0;i<2;i++){
-             typePlayer = dialog.infoBox();
-             name = dialog.infoBoxName();
-    
-switch(typePlayer) {
-    case "Human": this.player1 = new HumanPlayer(id, name); id++; break;
-    //case "Computer": this.player1 = new LocalComputerPlayer(id, name); id++; break;
-    //case "Remote": this.player1 = new RemoteComputerPlayer(id, name); id++; break;
-}
-}
 
+    PlayerManager() {
 
-}
-    
+        String typePlayer, name;
+
+        /* hämtar spelartyp och namn */
+     //   typePlayer = dialog.infoBox();
+       // name = dialog.infoBoxName();
+
+        player1 = new HumanPlayer(1, "elvir");
+
+        typePlayer = dialog.infoBox();
+        name = dialog.infoBoxName();
+
+    //    player1 = new HumanPlayer(2, name);
+    }
+
+    public Player getPlayerOne() {
+        return player1;
+    }
+
+    public Player getPlayerTwo() {
+        return player1;
+    }
+
 }
