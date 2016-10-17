@@ -5,6 +5,7 @@
  */
 package grupp01othello.view;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -15,6 +16,8 @@ import javafx.scene.control.Alert.AlertType;
 public class WinnerDialog {
 
     WinnerDialog() {
+        
+ Platform.runLater(() -> {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
@@ -22,6 +25,6 @@ public class WinnerDialog {
         alert.setContentText(/*player+*/" WIN!");
 
         alert.showAndWait();
-
+ });
     }
 }
