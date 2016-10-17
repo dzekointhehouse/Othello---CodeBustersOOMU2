@@ -25,13 +25,11 @@ public class GameBoard implements GridObserver {
 
         /* lägger till GameGrid instansen och registrerar sig på den som observer. */
         this.grid = gamegrid;
-        grid.register(this); // registrerar denna klassen som en observer till gamegrid.
-        
+        grid.register(this);
+
         InitializeGameBoard();
 
     }
-
-
 
     /**
      * createBoard initialiserar brädan och skapar rutor som man kan lägga sina
@@ -41,31 +39,26 @@ public class GameBoard implements GridObserver {
      */
     public void InitializeGameBoard() {
 
-
-
         for (int row = 0; row < 8; row++) {
 
             for (int col = 0; col < 8; col++) {
                 board.add(brick[row][col] = new grupp01othello.view.BoardCell(row, col), col, row); //lägger in celler
 
                 if ((row + col) % 2 == 0) {
-                    brick[row][col].setStyle("-fx-background-color: rgba(162, 150, 7, 0.75)");
+                    brick[row][col].setStyle("-fx-background-color: rgba(162, 150, 7, 0.81)");
                 } else {
-                    brick[row][col].setStyle("-fx-background-color: #1e303a");
+                    brick[row][col].setStyle("-fx-background-color: rgba(30, 48, 58, 0.8)");
                 }
 
             }
         }
 
-        board.setGridLinesVisible(true);
+        board.setGridLinesVisible(false);
 
     }
 
-
     /**
-     * Hämtar den färdiga brädan så att man kan sätta in den i en annan pane,
-     * t.ex. BorderPane.
-     *
+     * retunerar brädan från denna instansen.
      * @return GridPane
      */
     public GridPane getBoard() {
@@ -75,15 +68,15 @@ public class GameBoard implements GridObserver {
     @Override
     public void update(int[][] gameGrid) {
 
-                for (int row = 0; row < 8; row++) {
+        for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-              brick[row][col].getChildren().add(brick[row][col].setBrick(gameGrid[row][col]));
+                brick[row][col].getChildren().add(brick[row][col].setBrick(gameGrid[row][col]));
             }
         }
 
     }
-    
-        public void handleGameBoard(Player player) {
+
+    public void handleGameBoard(Player player) {
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -92,10 +85,5 @@ public class GameBoard implements GridObserver {
         }
 
     }
-
-
-
-
-
 
 }

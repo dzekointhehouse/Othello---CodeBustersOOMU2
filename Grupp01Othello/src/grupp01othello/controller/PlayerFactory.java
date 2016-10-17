@@ -11,14 +11,14 @@ import grupp01othello.view.setUpGameDialog;
 
 /**
  *
- * @author Markus
+ * @author Markus, Elvir
  */
-public class PlayerManager {
+public class PlayerFactory {
 
     setUpGameDialog dialog = new setUpGameDialog();
     Player player1, player2;
 
-    PlayerManager() {
+    PlayerFactory() {
 
         String typePlayer, name;
 
@@ -27,9 +27,10 @@ public class PlayerManager {
        // name = dialog.infoBoxName();
 
         player1 = new HumanPlayer(1, "elvir");
+        player2 = new HumanPlayer(2, "markus");
 
-        typePlayer = dialog.infoBox();
-        name = dialog.infoBoxName();
+//        typePlayer = dialog.infoBox();
+//        name = dialog.infoBoxName();
 
     //    player1 = new HumanPlayer(2, name);
     }
@@ -39,7 +40,7 @@ public class PlayerManager {
     }
 
     public Player getPlayerTwo() {
-        return player1;
+        return player2;
     }
 
 }

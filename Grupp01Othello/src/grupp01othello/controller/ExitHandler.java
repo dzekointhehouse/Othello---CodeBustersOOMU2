@@ -11,7 +11,7 @@ import javafx.event.EventHandler;
 
 /**
  *
- * @author optimusprime
+ * @author optimusprime (Elvir)
  */
 public class ExitHandler implements EventHandler<ActionEvent>{
 

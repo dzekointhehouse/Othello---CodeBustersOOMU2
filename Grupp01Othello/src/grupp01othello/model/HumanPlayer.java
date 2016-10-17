@@ -14,40 +14,38 @@ import javafx.beans.property.SimpleBooleanProperty;
  *
  * @author Markus
  */
-public class HumanPlayer extends Player implements EventListener {
-    
+public class HumanPlayer extends Player implements Runnable {
+
     private Move move;
-    
-    // Konstruktor: initialisera spelare med id?
-    public HumanPlayer(int markerID, String playerName){
+
+
+    public HumanPlayer(int markerID, String playerName) {
         super.setID(markerID);
         super.setName(playerName);
-        move = new Move(-1,-1);
+        move = new Move(-1, -1);
     }
-    
+
     public void setMove(int row, int col) {
-        // if( row && col == possible move)
-      //  System.out.println("row: " + row + " col: " + col);
         move.setMove(row, col);
         this.hasMadeMoveProperty().set(true);
     }
-      
-  boolean madeAMove(){
-      
-      if (move.getRow() > -1 && move.getColumn() > -1)
-          return true;
-      return false;
-  }
+
+    boolean madeAMove() {
+
+        if (move.getRow() > -1 && move.getColumn() > -1) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public Move getMove() {
         this.hasMadeMoveProperty().set(false);
         return move;
     }
-  
-   public void getMoveTest(){
-       
-       move.setMove(row, col);
-       System.out.println();
-   }
+
+    @Override
+    public void run() {
+
+    }
 }

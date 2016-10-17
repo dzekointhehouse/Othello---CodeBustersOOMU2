@@ -12,10 +12,11 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Markus
+ * @author Markus, Elvir
  */
 public class GameGrid implements Subject{
 
+    private final int SIZE = 8;
     private int[][] grid;
     private ArrayList<GridObserver> observer;
 
@@ -23,28 +24,29 @@ public class GameGrid implements Subject{
      * Konstruktorn initialiserar game griden.
      */
     public GameGrid() {
-        grid = new int[8][8];
+        grid = new int[SIZE][SIZE];
         observer = new ArrayList<GridObserver>();
 
     }
 
     /**
-     * initGrid initierar matrisen med 0 i alla rutor sedan så sätter den dom 4
-     * mitt i matrisen till svart elr vit som start på hela spelet.
+     * initialiserar game griden till rätt storlek och
+     * med de fyra första pjäserna anpassat för othello
      */
     public void initiateGameGrid() {
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
                 grid[row][col] = 0;
             }
 
         }
+
         grid[3][4] = 2;
         grid[3][3] = 1;
         grid[4][3] = 2;
         grid[4][4] = 1;
         
-        notifyObserver(); // notifierar observer så brädan får sina initial värden.
+        notifyObserver(); // notifierar observer så GUI får pjäserna.
     }
 
 
@@ -126,6 +128,33 @@ public class GameGrid implements Subject{
        this.grid[move.getRow()][move.getColumn()] = playerID;
        notifyObserver();
    }
+   
+//   private void addToGrid(int player, int row, int col){
+//        for (int i = -1; i <= 1; i++) {
+//            for (int j = -1; j <= 1; j++) {
+//                recursiveAdd(player, row+i, col+j, i, j);
+//            }
+//        }
+//        grid[row][col] = player;
+//    } 
+// 
+//private boolean recursiveAdd(int colour, int row, int col, int rowChange, int colChange){
+//        if ((row >= || (col >= || (row < 0) || (col < 0))
+//            return false;
+//        if (grid[row][col] == 0)
+//            return false;
+//        if ((grid[row][col] == colour)){
+//            if (grid[row-rowChange][col-colChange] != 0)
+//                return true;
+//            else return false;
+//        }
+//        if (recursiveAdd(colour, row+rowChange, col+colChange, rowChange, colChange)){
+//            grid[row][col] = colour;
+//            return true;
+//        }
+//        else return false;
+//    }
+
 
     
 }

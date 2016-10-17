@@ -9,7 +9,7 @@ import grupp01othello.view.GridObserver;
 
 /**
  *
- * @author optimusprime
+ * @author optimusprime (Elvir)
  */
 public interface Subject {
     

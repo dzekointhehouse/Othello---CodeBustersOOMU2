@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 
 /**
- * Created by optimusprime on 2016-10-04.
+ * Created by optimusprime (Elvir) on 2016-10-04.
  */
 public class GameFrame {
 
@@ -107,7 +107,7 @@ public class GameFrame {
     private void setHeaderComponent() {
 
         lblHeader.setFont(Font.font("Arial", FontWeight.BOLD, 60));
-        lblHeader.setStyle("-fx-text-fill: #5c0b00;");
+        lblHeader.setStyle("-fx-text-fill: #ffffff;");
         lblHeader.setAlignment(Pos.CENTER);
         topPane.getChildren().add(lblHeader);
         topPane.setAlignment(Pos.CENTER);

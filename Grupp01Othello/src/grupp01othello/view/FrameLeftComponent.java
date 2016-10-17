@@ -7,10 +7,8 @@ package grupp01othello.view;
 
 /**
  *
- * @author optimusprime (Elvir)
+ * @author optimusprime
  */
-public interface GridObserver {
-    
-    public abstract void update(int[][] gameGrid);
+public class FrameLeftComponent {
     
 }
