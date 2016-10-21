@@ -5,13 +5,11 @@ import grupp01othello.view.GameFrame;
 import grupp01othello.view.GameBoard;
 import javafx.stage.Stage;
 import grupp01othello.model.*;
-import java.util.ArrayList;
-
 /**
  * Created by optimusprime (Elvir) on 2016-09-27.
  */
 public class GameManager implements Runnable {
-
+    Object key = new Object();
     GameFrame gameframe;
 
 
@@ -24,6 +22,7 @@ public class GameManager implements Runnable {
     // PlayerMoveHandler handler = new PlayerMoveHAndler();
     public GameManager(Stage primaryStage) {
 
+      
         gameframe = new GameFrame(primaryStage);
 
     }
@@ -33,19 +32,28 @@ public class GameManager implements Runnable {
         gameframe.showFrame();
 
     }
-
+    //@Override
     public void run() {
+        
+        try {
+            setupGameBoard();
+            gamegrid.initiateGameGrid();
+            player1 = managePlayers.getPlayerOne();
+            player2 = managePlayers.getPlayerTwo();
+            
+            // skapa tråd för playerTurn pga. detta är våran hanterere av drag. 
+            //Hantering av trådarna, synka? så vi får in draget
+           
+        
+            playerTurn(player1, player2);
+          
+        } catch (Exception e) {
 
-        setupGameBoard();
-        gamegrid.initiateGameGrid();
-        player1 = managePlayers.getPlayerOne();
-        player2 = managePlayers.getPlayerTwo();
-
-        playerTurn(player1, player2);
-
+        }
     }
 
     public void handleMove(Player player, GameGrid gameGrid) {
+        // jag vill skapa en tråd här
         Move move = player.getMove();
         gamegrid.playMove(move, player.markerID);
     }
@@ -71,5 +79,4 @@ public class GameManager implements Runnable {
             }
         });
     }
-
 }

@@ -12,10 +12,8 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         GameManager othello = new GameManager(primaryStage);
-        //start (main) tråd 
-
-        othello.run();
-       
+     
+       othello.run();
        
     }
 
