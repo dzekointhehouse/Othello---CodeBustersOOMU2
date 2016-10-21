@@ -1,6 +1,6 @@
 package grupp01othello.view;
 
-import grupp01othello.model.Player;
+import grupp01othello.model.players.Player;
 import grupp01othello.model.Subject;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -14,7 +14,7 @@ public class GameBoard implements GridObserver {
     private GridPane board;
     grupp01othello.view.BoardCell[][] brick;
 
-    private Subject grid; // where the observed subject instance is kept.
+    private Subject grid; // where the observed subject reference is kept.
 
     public GameBoard(Subject gamegrid) {
 

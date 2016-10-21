@@ -5,9 +5,9 @@
  */
 package grupp01othello.controller;
 
-import grupp01othello.model.HumanPlayer;
-import grupp01othello.model.Player;
-import grupp01othello.view.setUpGameDialog;
+import grupp01othello.model.GameGrid;
+import grupp01othello.model.players.*;
+import grupp01othello.view.dialog.setUpGameDialog;
 
 /**
  *
@@ -18,7 +18,7 @@ public class PlayerFactory {
     setUpGameDialog dialog = new setUpGameDialog();
     Player player1, player2;
 
-    PlayerFactory() {
+    PlayerFactory(GameGrid grid) {
 
         String typePlayer, name;
 
@@ -26,8 +26,8 @@ public class PlayerFactory {
      //   typePlayer = dialog.infoBox();
        // name = dialog.infoBoxName();
 
-        player1 = new HumanPlayer(1, "elvir");
-        player2 = new HumanPlayer(2, "markus");
+        player1 = new LocalComputerPlayer(1, "elvir", grid);
+        player2 = new HumanPlayer(2, "markus", grid);
 
 //        typePlayer = dialog.infoBox();
 //        name = dialog.infoBoxName();

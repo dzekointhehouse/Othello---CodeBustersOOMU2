@@ -5,7 +5,7 @@
  */
 package grupp01othello.view;
 
-import grupp01othello.model.Player;
+import grupp01othello.model.players.Player;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;

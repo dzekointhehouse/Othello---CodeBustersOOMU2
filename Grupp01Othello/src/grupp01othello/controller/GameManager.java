@@ -1,10 +1,11 @@
 package grupp01othello.controller;
 
-import grupp01othello.view.BoardCell;
+import grupp01othello.model.players.Player;
 import grupp01othello.view.GameFrame;
 import grupp01othello.view.GameBoard;
 import javafx.stage.Stage;
 import grupp01othello.model.*;
+import java.util.ArrayList;
 
 /**
  * Created by optimusprime (Elvir) on 2016-09-27.
@@ -13,10 +14,11 @@ public class GameManager implements Runnable {
 
     GameFrame gameframe;
 
-    PlayerFactory managePlayers = new PlayerFactory();
+
     GameGrid gamegrid = new GameGrid(); // Subject
     GameBoard gameboard = new GameBoard(gamegrid); // Observer
     int gameTurn = 0;
+    PlayerFactory managePlayers = new PlayerFactory(gamegrid);
     Player player1, player2;
 
     // PlayerMoveHandler handler = new PlayerMoveHAndler();
@@ -45,7 +47,7 @@ public class GameManager implements Runnable {
 
     public void handleMove(Player player, GameGrid gameGrid) {
         Move move = player.getMove();
-        gamegrid.updateGameGrid(move, player.markerID);
+        gamegrid.playMove(move, player.markerID);
     }
     
     /**
