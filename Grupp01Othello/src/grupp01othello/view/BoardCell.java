@@ -26,6 +26,8 @@ public class BoardCell extends Pane {
         this.col = col;
 
         this.setPrefSize(2000, 2000);
+       
+        
 
     }
 
@@ -63,8 +65,8 @@ public class BoardCell extends Pane {
     public void brickClicked(Player player) {
 
         /* Spelaren som skickas in hanterar draget med setMoves */
-        this.setOnMouseClicked(event -> {          
-            player.setMove(this.row, this.col);          
+        this.setOnMouseClicked(event -> {  
+            player.setMove(row, col);
         });
     }
 }

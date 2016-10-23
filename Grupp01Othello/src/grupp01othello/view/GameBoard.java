@@ -2,6 +2,7 @@ package grupp01othello.view;
 
 import grupp01othello.model.players.Player;
 import grupp01othello.model.Subject;
+import javafx.event.EventType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -31,12 +32,7 @@ public class GameBoard implements GridObserver {
 
     }
 
-    /**
-     * createBoard initialiserar brädan och skapar rutor som man kan lägga sina
-     * brickor i, dessutom så sätts de fyra initiala bryckorna in på rätt plats.
-     *
-     * @return GridPane
-     */
+
     public void InitializeGameBoard() {
 
         for (int row = 0; row < 8; row++) {
@@ -71,6 +67,7 @@ public class GameBoard implements GridObserver {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 brick[row][col].getChildren().add(brick[row][col].setBrick(gameGrid[row][col]));
+                
             }
         }
 
@@ -78,9 +75,12 @@ public class GameBoard implements GridObserver {
 
     public void handleGameBoard(Player player) {
 
+      
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 brick[row][col].brickClicked(player);
+                
+
             }
         }
 

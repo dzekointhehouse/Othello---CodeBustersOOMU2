@@ -43,7 +43,6 @@ public class GameGrid implements Subject {
         grid[4][3] = 2;
 
         notifyObserver(); // notifierar observer så GUIn får start pjäserna.
-        GetAllLegalMoves(1);
     }
 
     /**

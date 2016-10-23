@@ -5,6 +5,7 @@ import grupp01othello.view.GameFrame;
 import grupp01othello.view.GameBoard;
 import javafx.stage.Stage;
 import grupp01othello.model.*;
+import grupp01othello.model.players.HumanPlayer;
 /**
  * Created by optimusprime (Elvir) on 2016-09-27.
  */
@@ -16,7 +17,7 @@ public class GameManager implements Runnable {
     GameGrid gamegrid = new GameGrid(); // Subject
     GameBoard gameboard = new GameBoard(gamegrid); // Observer
     int gameTurn = 0;
-    PlayerFactory managePlayers = new PlayerFactory(gamegrid);
+    PlayerFactory managePlayers = new PlayerFactory(gamegrid, gameboard);
     Player player1, player2;
 
     // PlayerMoveHandler handler = new PlayerMoveHAndler();
@@ -65,16 +66,15 @@ public class GameManager implements Runnable {
      * @param player2 
      */
     public void playerTurn(Player player, Player player2) {
-        
-        /* Skickar spelaren till gameboard som mottagare när ett event sker */
-        gameboard.handleGameBoard(player);
-        
+
+        player.getLegalMoves(gamegrid.GetAllLegalMoves(player.markerID));
         /* hasMadeMoveProperty blir true när spelaren får row och column, sen hanteras draget och det blir nästa spelares tur */
         player.hasMadeMoveProperty().addListener(e -> {
             
             //Måste kolla så att det finns drag kvar att göra!!!!!
             if (player.hasMadeMoveProperty().get()) {
-                handleMove(player, gamegrid);         
+                
+                handleMove(player, gamegrid);
                 playerTurn(player2, player);
             }
         });
