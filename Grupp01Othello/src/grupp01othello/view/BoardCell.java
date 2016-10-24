@@ -4,36 +4,40 @@
  * and open the template in the editor.
  */
 package grupp01othello.view;
-import grupp01othello.controller.GameManager;
+
 import grupp01othello.model.players.Player;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
-//exit
+
 /**
  *
- * @author optimusprime
+ * @author optimusprime (Elvir Dzeko).
  */
-
 public class BoardCell extends Pane {
+
     private BooleanProperty hasClicked = new SimpleBooleanProperty(false);
     private int row, col;
 
     public BoardCell(int row, int col) {
 
-        /* information som används senare i gamegrid, de skickas med i eventhandling. */
+        /* row och col skickas vid event. */
         this.row = row;
         this.col = col;
 
         this.setPrefSize(2000, 2000);
-       
-        
 
     }
 
-    public Ellipse setBrick(int token) {
+    /**
+     * Målar upp spelbrickan på brädan efter spelarens markörID.
+     *
+     * @param markerID
+     * @return Ellipse
+     */
+    public Ellipse setBrick(int markerID) {
 
         Ellipse brick = new Ellipse(this.getWidth() / 2,
                 this.getHeight() / 2, this.getWidth() / 2 - 10,
@@ -48,15 +52,15 @@ public class BoardCell extends Pane {
         brick.centerYProperty().bind(
                 this.heightProperty().divide(2));
 
-        /* 1 = Svart Bricka */
-        if (token == 1) {
+            /* 1 = Svart Bricka */
+        if (markerID == 1) {
             brick.setFill(Color.BLACK);
             brick.setStroke(Color.WHITE);
-        /* 2 = vit Bricka */
-        } else if (token == 2) {
+            /* 2 = vit Bricka */
+        } else if (markerID == 2) {
             brick.setFill(Color.WHITE);
             brick.setStroke(Color.BLACK);
-        /* Genomsynlig */
+            /* Genomsynlig */
         } else {
             brick.setFill(Color.TRANSPARENT);
             brick.setStroke(Color.TRANSPARENT);
@@ -64,12 +68,19 @@ public class BoardCell extends Pane {
         return brick;
     }
 
+    /**
+     * Metod som kan anropas för att skicka in en spelare för att hantera ett
+     * mouse event som kan ske när cellen blir clickad. Då kan spelaren få
+     * koordinaterna genom setMove.
+     *
+     * @param player
+     */
     public void brickClicked(Player player) {
 
-        /* Spelaren som skickas in hanterar draget med setMoves */
-        this.setOnMouseClicked(event -> { 
-            player.setMove(row, col);
-           // gör något helt annat här? typ skicka event? 
+        /* Spelaren som skickas in hanterar mouseevents med anrop till setMoves */
+        this.setOnMouseClicked(event -> {
+            player.setMove(row, col); // skicka event?
+
         });
     }
 }

@@ -9,13 +9,10 @@ import grupp01othello.model.GameGrid;
 import grupp01othello.model.Move;
 import grupp01othello.view.GameBoard;
 import java.util.ArrayList;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
-//exit
+
 /**
  *
- * @author Markus
+ * @author Markus, Elvir
  */
 public class HumanPlayer extends Player {
 
@@ -25,13 +22,20 @@ public class HumanPlayer extends Player {
 
     public HumanPlayer(int markerID, GameGrid grid, GameBoard board) {
         this.grid = grid;
+        this.board = board;
         super.setID(markerID);
         move = new Move(-1, -1);
-        this.board = board;
-                        board.handleGameBoard(this);
-
     }
 
+    /**
+     * Denna metod används i Gameboard, för att få in ett nytt drag från
+     * spelaren vid ett event (kanske ha ett interface mellan dem), draget som
+     * gjorts jämförs med alla lagliga drag som hämtas från gamegrid.
+     *
+     * @param row
+     * @param col
+     */
+    @Override
     public void setMove(int row, int col) {
 
         ArrayList<Move> legalMoves = grid.getAllLegalMoves(markerID);
@@ -46,26 +50,30 @@ public class HumanPlayer extends Player {
 
     }
 
+    /**
+     * Denna metoden väntar på att den mänskliga spelaren ska få in ett giltigt
+     * drag från setMove och då avbryts loopen och draget retuneras.
+     *
+     * @return Move
+     */
     @Override
     public Move getMove() {
-        while (!this.hasMadeMoveProperty().get()) {
-            try {
-                board.handleGameBoard(this);
-                Thread.currentThread().sleep(50);
 
+        while (!this.hasMadeMoveProperty().get()) { // väntar på drag ett drag.
+            try {
+                /* skickar denna instansen som handler i gameboard. */
+                board.handleGameBoard(this);
             } catch (Exception e) {
                 e.getStackTrace();
             }
+            /* hoppa ur loopen om ett drag har gjorts (true) */
             if (this.hasMadeMoveProperty().get()) {
                 break;
             }
         }
+        /* ändrar till false igen inför nästa drag och
+           retunerar aktuellt drag. */
         this.hasMadeMoveProperty().set(false);
         return move;
     }
-
-    public void getLegalMoves() {
-
-    }
-
 }

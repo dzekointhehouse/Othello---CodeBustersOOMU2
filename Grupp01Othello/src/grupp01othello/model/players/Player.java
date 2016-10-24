@@ -44,7 +44,5 @@ public abstract class Player {
     public abstract void setMove(int row, int col);
 
     public abstract Move getMove();
-    
-    public abstract void getLegalMoves(); 
 
 }

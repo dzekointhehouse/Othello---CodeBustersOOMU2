@@ -28,21 +28,6 @@ public class LocalComputerPlayer extends Player {
 
     @Override
     public void setMove(int row, int col) {
-//        move.setRow(row);
-//        move.setColumn(col);
-//        ArrayList<Move> legalMoves = grid.getAllLegalMoves(markerID);
-//
-//        if (legalMoves.size() == 0) {
-//            this.hasMadeMoveProperty().set(true); // har gjort ett drag, om det inte finns några lagliga drag att göra.
-//        } else {
-//            Random randomMove = new Random();
-//            int index = randomMove.nextInt(legalMoves.size() - 1); // slumpar genom möjliga drag.
-//
-//            this.hasMadeMoveProperty().set(true); // true = har gjort ett drag.
-//            
-//            move.setRow(legalMoves.get(index).getRow());
-//            move.setColumn(legalMoves.get(index).getRow()); // sätter in slumpade dragen som move.
-//        }
 
     }
 
@@ -50,25 +35,23 @@ public class LocalComputerPlayer extends Player {
     public Move getMove() {
         try {
             Thread.sleep(2000);
-            getLegalMoves();
+            generateMove();
         } catch (Exception e) {
-
+            e.printStackTrace();
         } finally {
-
             this.hasMadeMoveProperty().set(false);
             return move;
         }
     }
 
-    @Override
-    public void getLegalMoves() {
+
+    public void generateMove() {
 
         ArrayList<Move> legalMoves = grid.getAllLegalMoves(markerID);
 
         if (legalMoves.isEmpty()) {
             this.hasMadeMoveProperty().set(true); // har gjort ett drag, om det inte finns några lagliga drag att göra.
             resetMove();
-            return;
         } else {
             Random randomMove = new Random();
             int index = randomMove.nextInt(legalMoves.size() - 1); // slumpar genom möjliga drag.
@@ -76,7 +59,6 @@ public class LocalComputerPlayer extends Player {
             move.setRow(legalMoves.get(index).getRow());
             move.setColumn(legalMoves.get(index).getColumn()); // sätter in slumpade dragen som move.
             this.hasMadeMoveProperty().set(true); // true = har gjort ett drag.
-
         }
     }
     /**

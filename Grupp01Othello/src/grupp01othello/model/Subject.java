@@ -1,12 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Subject interface som frikopplar gamegrid från gameboard genom
+ * att följa observer mönstret.
  */
 package grupp01othello.model;
 
 import grupp01othello.view.GridObserver;
-//exit
+
 /**
  *
  * @author optimusprime (Elvir)

@@ -8,6 +8,7 @@ package grupp01othello.model;
 import grupp01othello.view.GridObserver;
 import java.util.ArrayList;
 //exit
+
 /**
  *
  * @author Markus, Elvir
@@ -15,20 +16,20 @@ import java.util.ArrayList;
 public class GameGrid implements Subject {
 
     private final int SIZE = 8;
+    private static int fullboard = 4;
 
     private int[][] grid;
-    private ArrayList<GridObserver> observer;
+    private ArrayList<GridObserver> observers;
 
     public GameGrid() {
         grid = new int[SIZE][SIZE];
-        observer = new ArrayList<GridObserver>();
+        observers = new ArrayList<GridObserver>();
 
     }
-    
 
     /**
      * initialiserar game griden till rätt storlek och med de fyra första
-     * pjäserna anpassat för othello
+     * brickorna insatta, anpassat för othello.
      */
     public void initiateGameGrid() {
         for (int row = 0; row < SIZE; row++) {
@@ -46,12 +47,14 @@ public class GameGrid implements Subject {
     }
 
     /**
-     * boardIsFull loopar genom alla platser i matrisen och returnerar true om
-     * hela matrisen är full med spelpjäser
+     * metoden jämför om fullboard är lika med storleken på brädan.
+     *
+     * @return true om brädan är full, annars false.
      */
-//    boolean boardIsFull() {
-//        
-//    }
+    boolean boardIsFull() {
+        return (fullboard == SIZE * SIZE);
+
+    }
 
     /**
      * win metoden loopar genom hela matrisen och ökar 2 variablar beroende på
@@ -81,29 +84,29 @@ public class GameGrid implements Subject {
 
     @Override
     public void register(GridObserver newObserver) {
-
-        observer.add(newObserver);
+        observers.add(newObserver);
     }
 
     @Override
     public void unregister(GridObserver deleteObserver) {
-
-        observer.remove(deleteObserver);
+        observers.remove(deleteObserver);
 
     }
 
     @Override
     public void notifyObserver() {
 
-        for (GridObserver observer : observer) {
-
+        for (GridObserver observer : observers) {
             observer.update(grid); // skickar uppdaterade spel griden till observers.
         }
     }
 
     public void playMove(Move move, int playerID) {
-        if((move.getRow() >= 0) && (move.getColumn() >= 0))
-        processMove(playerID, move.getRow(), move.getColumn());
+        if ((move.getRow() >= 0) && (move.getColumn() >= 0)) {
+            fullboard++;
+            processMove(playerID, move.getRow(), move.getColumn());
+        }
+
         notifyObserver();
     }
 
