@@ -9,14 +9,14 @@ import grupp01othello.model.GameGrid;
 import grupp01othello.model.players.*;
 import grupp01othello.view.GameBoard;
 import grupp01othello.view.dialog.setUpGameDialog;
-
+//exit
 /**
  *
  * @author Markus, Elvir
  */
 public class PlayerFactory {
 
-    setUpGameDialog dialog = new setUpGameDialog();
+    setUpGameDialog();
     Player player1, player2;
     
     GameGrid grid;

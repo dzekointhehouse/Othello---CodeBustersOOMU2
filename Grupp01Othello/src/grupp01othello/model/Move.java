@@ -4,7 +4,7 @@
  * för att skicka primitiva data typer.
  */
 package grupp01othello.model;
-
+//exit
 /**
  *
  * @author optimusprime (Elvir Dzeko)

@@ -10,5 +10,5 @@ package grupp01othello.model.players;
  * @author Markus
  */
 public class RemoteComputerPlayer {
-    
+    //exit
 }

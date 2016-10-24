@@ -13,7 +13,7 @@ import javafx.scene.control.Alert.AlertType;
  * @author Markus
  */
 public class WinnerDialog {
-
+//exit
     WinnerDialog() {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information Dialog");

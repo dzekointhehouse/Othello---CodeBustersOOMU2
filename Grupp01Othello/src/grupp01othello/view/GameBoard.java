@@ -5,7 +5,7 @@ import grupp01othello.model.Subject;
 import javafx.event.EventType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
+//exit
 /**
  * Created by optimusprime on 2016-09-27.
  */

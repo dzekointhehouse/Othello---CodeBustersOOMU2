@@ -11,7 +11,7 @@ import grupp01othello.model.Move;
 import java.util.ArrayList;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-
+//exit
 /**
  *
  * @author Markus

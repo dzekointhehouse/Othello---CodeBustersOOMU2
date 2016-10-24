@@ -6,7 +6,7 @@
 package grupp01othello.model;
 
 import grupp01othello.view.GridObserver;
-
+//exit
 /**
  *
  * @author optimusprime (Elvir)

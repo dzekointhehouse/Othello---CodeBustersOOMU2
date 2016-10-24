@@ -10,5 +10,5 @@ package grupp01othello.view;
  * @author optimusprime
  */
 public class FrameLeftComponent {
-    
+    //exit
 }

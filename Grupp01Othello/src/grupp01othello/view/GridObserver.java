@@ -10,7 +10,7 @@ package grupp01othello.view;
  * @author optimusprime (Elvir)
  */
 public interface GridObserver {
-    
+    //exit
     public abstract void update(int[][] gameGrid);
     
 }

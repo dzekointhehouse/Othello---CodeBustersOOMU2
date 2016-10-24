@@ -9,7 +9,7 @@ import grupp01othello.model.GameGrid;
 import grupp01othello.model.Move;
 import java.util.ArrayList;
 import java.util.Random;
-
+//exit
 /**
  *
  * @author Markus

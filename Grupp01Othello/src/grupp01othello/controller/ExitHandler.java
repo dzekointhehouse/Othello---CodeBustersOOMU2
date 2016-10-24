@@ -17,6 +17,7 @@ public class ExitHandler implements EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent event) {
+        //exit
         Platform.exit();
     }
     

@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import grupp01othello.model.*;
 import grupp01othello.model.players.HumanPlayer;
 import javafx.application.Platform;
+//exit
 /**
  * Created by optimusprime (Elvir) on 2016-09-27.
  */
