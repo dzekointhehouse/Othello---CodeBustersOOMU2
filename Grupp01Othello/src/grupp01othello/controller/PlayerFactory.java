@@ -27,9 +27,11 @@ public class PlayerFactory {
         this.grid = grid;
         this.board = board;
         
-        player1 = new LocalComputerPlayer(1, "elvir", grid);
-                player2 = new LocalComputerPlayer(2, "elvir", grid);
-        //player2 = new HumanPlayer(2, grid, board);
+      player1 = new LocalComputerPlayer(1, "elvir", grid);
+//                player2 = new LocalComputerPlayer(2, "elvir", grid);
+
+//        player1 = new HumanPlayer(1, grid, board);
+        player2 = new HumanPlayer(2, grid, board);
 
         
 //        typePlayer = dialog.infoBox();

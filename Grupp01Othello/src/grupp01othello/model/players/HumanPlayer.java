@@ -9,6 +9,7 @@ import grupp01othello.model.GameGrid;
 import grupp01othello.model.Move;
 import grupp01othello.view.GameBoard;
 import java.util.ArrayList;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -16,7 +17,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author Markus
  */
-public class HumanPlayer extends Player implements EventHandler<MouseEvent> {
+public class HumanPlayer extends Player {
 
     private Move move;
     GameGrid grid;
@@ -27,37 +28,44 @@ public class HumanPlayer extends Player implements EventHandler<MouseEvent> {
         super.setID(markerID);
         move = new Move(-1, -1);
         this.board = board;
+                        board.handleGameBoard(this);
 
     }
 
     public void setMove(int row, int col) {
 
-        ArrayList<Move> moves = grid.GetAllLegalMoves(markerID);
-        
-        for (int i = 0; i < moves.size(); i++) {
-            if (row == moves.get(i).getRow() && col == moves.get(i).getColumn()) {
+        ArrayList<Move> legalMoves = grid.getAllLegalMoves(markerID);
+
+        for (int i = 0; i < legalMoves.size(); i++) {
+            if (row == legalMoves.get(i).getRow() && col == legalMoves.get(i).getColumn()) {
                 move.setRow(row);
                 move.setColumn(col);
                 this.hasMadeMoveProperty().set(true);
             }
         }
-    }
 
+    }
 
     @Override
     public Move getMove() {
+        while (!this.hasMadeMoveProperty().get()) {
+            try {
+                board.handleGameBoard(this);
+                Thread.currentThread().sleep(50);
+
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+            if (this.hasMadeMoveProperty().get()) {
+                break;
+            }
+        }
         this.hasMadeMoveProperty().set(false);
         return move;
     }
 
-    @Override
-    public void handle(MouseEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public void getLegalMoves(ArrayList<Move> allmoves){
-        
-        
+    public void getLegalMoves() {
+
     }
 
 }

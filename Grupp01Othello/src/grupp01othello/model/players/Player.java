@@ -45,6 +45,6 @@ public abstract class Player {
 
     public abstract Move getMove();
     
-    public abstract void getLegalMoves(ArrayList<Move> allmoves); 
+    public abstract void getLegalMoves(); 
 
 }

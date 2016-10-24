@@ -17,12 +17,10 @@ public class GameGrid implements Subject {
     private final int SIZE = 8;
     private int[][] grid;
     private ArrayList<GridObserver> observer;
-    ArrayList<Move> allLegalMoves;
 
     public GameGrid() {
         grid = new int[SIZE][SIZE];
         observer = new ArrayList<GridObserver>();
-        allLegalMoves = new ArrayList<>();
 
     }
 
@@ -136,7 +134,7 @@ public class GameGrid implements Subject {
             return false;
         }
         if ((grid[row][col] == colour)) {
-            if (grid[row - nextRow][col - nextCol] != 0 ) {
+            if (grid[row - nextRow][col - nextCol] != 0) {
                 return true;
             } else {
                 return false;
@@ -184,7 +182,9 @@ public class GameGrid implements Subject {
         }
     }
 
-    public ArrayList<Move> GetAllLegalMoves(int playerID) {
+    public ArrayList<Move> getAllLegalMoves(int playerID) {
+
+        ArrayList<Move> allLegalMoves = new ArrayList<>();
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {

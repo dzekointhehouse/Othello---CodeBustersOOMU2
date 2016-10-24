@@ -6,6 +6,7 @@ import grupp01othello.view.GameBoard;
 import javafx.stage.Stage;
 import grupp01othello.model.*;
 import grupp01othello.model.players.HumanPlayer;
+import javafx.application.Platform;
 /**
  * Created by optimusprime (Elvir) on 2016-09-27.
  */
@@ -42,10 +43,6 @@ public class GameManager implements Runnable {
             player1 = managePlayers.getPlayerOne();
             player2 = managePlayers.getPlayerTwo();
             
-            // skapa tråd för playerTurn pga. detta är våran hanterere av drag. 
-            //Hantering av trådarna, synka? så vi får in draget
-           
-        
             playerTurn(player1, player2);
           
         } catch (Exception e) {
@@ -53,30 +50,43 @@ public class GameManager implements Runnable {
         }
     }
 
-    public void handleMove(Player player, GameGrid gameGrid) {
+    public void handleMove(Player player) {
         // jag vill skapa en tråd här
         Move move = player.getMove();
-        gamegrid.playMove(move, player.markerID);
+        
+        Platform.runLater(new Runnable() {
+
+            public void run() {
+                gamegrid.playMove(move, player.markerID);
+            }
+        });
+
     }
-    
+
     /**
-     * Denna metod skiftar spelarnas tur rekursivt, spelaren som skickas
+     * Denna metod skiftar spelarnas tur, spelaren som skickas
      * som första parameter är den som väntar på draget från användaren.
      * @param player
      * @param player2 
      */
     public void playerTurn(Player player, Player player2) {
 
-        player.getLegalMoves(gamegrid.GetAllLegalMoves(player.markerID));
-        /* hasMadeMoveProperty blir true när spelaren får row och column, sen hanteras draget och det blir nästa spelares tur */
-        player.hasMadeMoveProperty().addListener(e -> {
-            
-            //Måste kolla så att det finns drag kvar att göra!!!!!
-            if (player.hasMadeMoveProperty().get()) {
-                
-                handleMove(player, gamegrid);
-                playerTurn(player2, player);
+        new Thread(new Runnable() {
+
+            public void run() {
+                    System.out.println("innei  ny tråd");
+                int i = 0;
+                while (true) {
+                    if (i % 2 == 0) {                       
+                        handleMove(player);
+                        i++;
+                    } else {
+                        handleMove(player2);
+                        i++;
+                    }
+                }
             }
-        });
+        }).start();
+
     }
 }
