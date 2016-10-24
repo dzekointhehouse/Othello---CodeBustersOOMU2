@@ -67,6 +67,7 @@ public class LocalComputerPlayer extends Player {
 
         if (legalMoves.isEmpty()) {
             this.hasMadeMoveProperty().set(true); // har gjort ett drag, om det inte finns några lagliga drag att göra.
+            resetMove();
             return;
         } else {
             Random randomMove = new Random();
@@ -77,5 +78,12 @@ public class LocalComputerPlayer extends Player {
             this.hasMadeMoveProperty().set(true); // true = har gjort ett drag.
 
         }
+    }
+    /**
+     * resetMove, används för att återställa värdet på kordinaterna när det inte finns ett möjligt drag.
+     */
+    public void resetMove(){
+        move.setColumn(-1);
+        move.setRow(-1);
     }
 }

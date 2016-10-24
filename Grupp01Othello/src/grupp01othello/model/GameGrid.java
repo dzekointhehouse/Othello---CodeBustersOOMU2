@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class GameGrid implements Subject {
 
     private final int SIZE = 8;
+
     private int[][] grid;
     private ArrayList<GridObserver> observer;
 
@@ -23,6 +24,7 @@ public class GameGrid implements Subject {
         observer = new ArrayList<GridObserver>();
 
     }
+    
 
     /**
      * initialiserar game griden till rätt storlek och med de fyra första
@@ -47,20 +49,9 @@ public class GameGrid implements Subject {
      * boardIsFull loopar genom alla platser i matrisen och returnerar true om
      * hela matrisen är full med spelpjäser
      */
-    boolean boardIsFull() {
-        int flag = 0;
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                if (grid[row][col] != 0) {
-                    flag = 1;
-                }
-            }
-            if (flag == 1) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    boolean boardIsFull() {
+//        
+//    }
 
     /**
      * win metoden loopar genom hela matrisen och ökar 2 variablar beroende på
@@ -111,7 +102,7 @@ public class GameGrid implements Subject {
     }
 
     public void playMove(Move move, int playerID) {
-
+        if((move.getRow() >= 0) && (move.getColumn() >= 0))
         processMove(playerID, move.getRow(), move.getColumn());
         notifyObserver();
     }

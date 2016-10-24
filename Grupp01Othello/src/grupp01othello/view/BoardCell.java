@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package grupp01othello.view;
-
+import grupp01othello.controller.GameManager;
 import grupp01othello.model.players.Player;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -16,7 +18,7 @@ import javafx.scene.shape.Ellipse;
  */
 
 public class BoardCell extends Pane {
-
+    private BooleanProperty hasClicked = new SimpleBooleanProperty(false);
     private int row, col;
 
     public BoardCell(int row, int col) {
@@ -65,8 +67,9 @@ public class BoardCell extends Pane {
     public void brickClicked(Player player) {
 
         /* Spelaren som skickas in hanterar draget med setMoves */
-        this.setOnMouseClicked(event -> {  
+        this.setOnMouseClicked(event -> { 
             player.setMove(row, col);
+           // gör något helt annat här? typ skicka event? 
         });
     }
 }

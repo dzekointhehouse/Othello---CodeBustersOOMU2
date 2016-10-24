@@ -5,7 +5,10 @@
  */
 package grupp01othello.view.dialog;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 /**
  *
@@ -21,15 +24,20 @@ public class setUpGameDialog {
 
     public String infoBox() {
         String player;
-    TextInputDialog dialog = new TextInputDialog("Player");
+        List<String> choices = new ArrayList<>();
+        choices.add("HumanPlayer");
+        choices.add("LocalComputerPlayer");
+        choices.add("RemoteComputerPlayer");
+        
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("HumanPlayer", choices);
         dialog.setTitle("Which Player?");
         dialog.setHeaderText("Start OthelloGame");
-        dialog.setContentText("Please enter PlayerType: Human, local or remote ");
+        dialog.setContentText("Please Choose your player ");
 
 // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
-            System.out.println(" Player is: " + result.get());
+            System.out.println("Player is: " + result.get());
         }
         player = result.get();
         

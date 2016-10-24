@@ -23,7 +23,6 @@ public class GameBoard implements GridObserver {
         board = new GridPane();
         brick = new grupp01othello.view.BoardCell[8][8];
 
-
         /* lägger till GameGrid instansen och registrerar sig på den som observer. */
         this.grid = gamegrid;
         grid.register(this);
@@ -75,15 +74,12 @@ public class GameBoard implements GridObserver {
 
     public void handleGameBoard(Player player) {
 
-      
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                brick[row][col].brickClicked(player);
                 
-
+                brick[row][col].brickClicked(player);
+       
             }
         }
-
     }
-
 }
