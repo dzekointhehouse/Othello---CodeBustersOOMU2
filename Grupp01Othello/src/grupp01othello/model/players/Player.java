@@ -20,7 +20,6 @@ public abstract class Player {
 
     protected String name;
     public int markerID;
-    int row, col;
 
     public Player() {
 

@@ -1,6 +1,7 @@
 package grupp01othello.view;
 
 import grupp01othello.controller.ExitHandler;
+import grupp01othello.controller.ThemeHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,6 +31,7 @@ public class GameFrame {
     private Button btExit = new Button("Avsluta");
     private Label lblHeader = new Label("GRAND OTHELLO");
     private Label lblTurns;
+    private Background background;
 
     private int minWidth = 800, minHeight = 650;
 
@@ -48,9 +50,9 @@ public class GameFrame {
         this.topPane = new StackPane();
         this.mainScene = new Scene(mainframe, minWidth, minHeight);
         this.lblTurns = new Label("Turns Left");
-        
+
         ExitButton();
-        
+
     }
 
     /**
@@ -58,7 +60,7 @@ public class GameFrame {
      */
     public void showFrame() {
 
-        Background background = new Background(new BackgroundImage(
+        background = new Background(new BackgroundImage(
                 new Image("image/minions1.jpeg"),
                 BackgroundRepeat.SPACE,
                 BackgroundRepeat.SPACE,
@@ -72,7 +74,6 @@ public class GameFrame {
         primarystage.setTitle("CodeBusters");
         primarystage.setScene(mainScene);
         primarystage.show();
-        
 
     }
 
@@ -101,8 +102,7 @@ public class GameFrame {
     }
 
     /**
-     * Kanske ta in bool som parameter för att kunna av aktivera metoden som
-     * alternativ.
+     * Sätter in header komponenten som består av spelets namn
      */
     private void setHeaderComponent() {
 
@@ -114,16 +114,23 @@ public class GameFrame {
         mainframe.setTop(topPane);
     }
 
+    /**
+     * Sätter in den högra komponenten i frame.
+     */
     private void setInformationComponent() {
         infoBox.setMinHeight(20);
         mainframe.setBottom(infoBox);
     }
-    
-    private void ExitButton(){
-        this.btExit.setOnAction(e -> {
-           ExitHandler exit = new ExitHandler();
-           exit.handle(e);
+
+    /**
+     * Anropar ExitHandler som stänger ner programmet.
+     */
+    private void ExitButton() {
+        btExit.setOnAction(e -> {
+            ExitHandler exit = new ExitHandler();
+            exit.handle(e);
         });
     }
+
 
 }

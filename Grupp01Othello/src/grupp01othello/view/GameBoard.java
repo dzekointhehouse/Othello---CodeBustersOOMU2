@@ -79,7 +79,9 @@ public class GameBoard implements GridObserver {
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-                tile[row][col].getChildren().add(tile[row][col].setBrick(grid[row][col]));
+                if(!tile[row][col].getChildren().isEmpty())
+                    tile[row][col].getChildren().clear();
+                tile[row][col].getChildren().add(tile[row][col].addPiece(grid[row][col]));
             }
         }
     }
@@ -94,7 +96,7 @@ public class GameBoard implements GridObserver {
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-                tile[row][col].brickClicked(player);
+                tile[row][col].tileClicked(player);
             }
         }
     }

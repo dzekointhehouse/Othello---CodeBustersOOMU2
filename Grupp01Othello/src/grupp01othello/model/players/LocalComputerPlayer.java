@@ -10,6 +10,7 @@ import grupp01othello.model.Move;
 import java.util.ArrayList;
 import java.util.Random;
 //exit
+
 /**
  *
  * @author Markus
@@ -28,23 +29,20 @@ public class LocalComputerPlayer extends Player {
 
     @Override
     public void setMove(int row, int col) {
-        this.row = row;
-        this.col = col;
+        move.setRow(row);
+        move.setColumn(col);
     }
 
     @Override
     public Move getMove() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(50);
             generateMove();
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             this.hasMadeMoveProperty().set(false);
             return move;
         }
     }
-
 
     public void generateMove() {
 
@@ -62,10 +60,12 @@ public class LocalComputerPlayer extends Player {
             this.hasMadeMoveProperty().set(true); // true = har gjort ett drag.
         }
     }
+
     /**
-     * resetMove, används för att återställa värdet på kordinaterna när det inte finns ett möjligt drag.
+     * resetMove, används för att återställa värdet på kordinaterna när det inte
+     * finns ett möjligt drag.
      */
-    public void resetMove(){
+    public void resetMove() {
         move.setColumn(-1);
         move.setRow(-1);
     }

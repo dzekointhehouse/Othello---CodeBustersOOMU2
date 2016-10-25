@@ -1,13 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Mer abstraktion skulle kunna göras med gamegriden, separera griden och regler skulle nog kunna gå
+ * men fokus ligger på annat pga tidspress.
  */
 package grupp01othello.model;
 
 import grupp01othello.view.GridObserver;
 import java.util.ArrayList;
-//exit
 
 /**
  *
@@ -62,7 +60,7 @@ public class GameGrid implements Subject {
      * vilken som har mest antal spelpjäser av sin färg dvs. räknar ut vem som
      * har vunnit
      */
-    int win() {
+    String win() {
         int black = 0, white = 0;
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
@@ -76,10 +74,10 @@ public class GameGrid implements Subject {
             }
         }
         if (black > white) {
-            return black;
+            return "black";
         }
 
-        return white;
+        return "white";
     }
 
     @Override
@@ -101,27 +99,27 @@ public class GameGrid implements Subject {
         }
     }
 
-    public void playMove(Move move, int playerID) {
+    public void playMove(Move move, int markerID) {
         if ((move.getRow() >= 0) && (move.getColumn() >= 0)) {
             usedTiles++;
-            processMove(playerID, move.getRow(), move.getColumn());
+            processMove(markerID, move.getRow(), move.getColumn());
         }
 
         notifyObserver();
     }
 
-    public void processMove(int player, int row, int col) {
+    public void processMove(int markerID, int row, int col) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                flipChip(player, row + i, col + j, i, j);
+                processPath(markerID, row + i, col + j, i, j);
             }
         }
-        grid[row][col] = player;
+        grid[row][col] = markerID;
         notifyObserver();
     }
 
-    private boolean flipChip(int colour, int row, int col, int nextRow, int nextCol) {
-        if ((row < 0) || (col < 0) || (row >= 8) || (col >= 8)) {
+    private boolean processPath(int colour, int row, int col, int nextRow, int nextCol) {
+        if ((row < 0) || (col < 0) || (row >= SIZE) || (col >= SIZE)) {
             return false;
         }
         if (grid[row][col] == 0) {
@@ -134,7 +132,7 @@ public class GameGrid implements Subject {
                 return false;
             }
         }
-        if (flipChip(colour, row + nextRow, col + nextCol, nextRow, nextCol)) {
+        if (processPath(colour, row + nextRow, col + nextCol, nextRow, nextCol)) {
             grid[row][col] = colour;
             return true;
         } else {
@@ -142,11 +140,11 @@ public class GameGrid implements Subject {
         }
     }
 
-    public boolean legalMove(int playerID, int row, int col) {
+    public boolean legalMove(int markerID, int row, int col) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (isLegalPath(playerID, row + i, col + j, i, j)) {
-                    System.out.println(row + " " + col);
+                if (isLegalPath(markerID, row + i, col + j, i, j)) {
+                    //System.out.println(row + " " + col);
                     return true;
                 }
             }
@@ -169,21 +167,21 @@ public class GameGrid implements Subject {
                 return false;
             }
         }
-        if (flipChip(colour, row + nextRow, col + nextCol, nextRow, nextCol)) {
+        if (processPath(colour, row + nextRow, col + nextCol, nextRow, nextCol)) {
             return true;
         } else {
             return false;
         }
     }
 
-    public ArrayList<Move> getAllLegalMoves(int playerID) {
+    public ArrayList<Move> getAllLegalMoves(int markerID) {
 
         ArrayList<Move> allLegalMoves = new ArrayList<>();
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if (grid[row][col] == 0) { // så algoritmen inte testar sätta in från "existerande" pjäser.
-                    if (legalMove(playerID, row, col)) {
+                    if (legalMove(markerID, row, col)) {
                         allLegalMoves.add(new Move(row, col));
                     }
                 }

@@ -35,37 +35,37 @@ public class BoardTile extends Pane {
      * @param markerID
      * @return spelbricka med rätt färg som kan läggas till i GameBoard.
      */
-    public Ellipse setBrick(int markerID) {
+    public Ellipse addPiece(int markerID) {
 
-        Ellipse brick = new Ellipse(this.getWidth() / 2,
+        Ellipse gamepiece = new Ellipse(this.getWidth() / 2,
                 this.getHeight() / 2, this.getWidth() / 2 - 10,
                 this.getHeight() / 2 - 10);
 
-        brick.radiusXProperty().bind(
+        gamepiece.radiusXProperty().bind(
                 this.widthProperty().divide(2).subtract(10));
-        brick.radiusYProperty().bind(
+        gamepiece.radiusYProperty().bind(
                 this.heightProperty().divide(2).subtract(10));
-        brick.centerXProperty().bind(
+        gamepiece.centerXProperty().bind(
                 this.widthProperty().divide(2));
-        brick.centerYProperty().bind(
+        gamepiece.centerYProperty().bind(
                 this.heightProperty().divide(2));
         
         InnerShadow is = new InnerShadow();
-        brick.setEffect(is);
+        gamepiece.setEffect(is);
             /* 1 = Svart Bricka */
         if (markerID == 1) {
-            brick.setFill(Color.BLACK);
-            brick.setStroke(Color.WHITE);
+            gamepiece.setFill(Color.BLACK);
+            gamepiece.setStroke(Color.WHITE);
             /* 2 = vit Bricka */
         } else if (markerID == 2) {
-            brick.setFill(Color.WHITE);
-            brick.setStroke(Color.BLACK);
+            gamepiece.setFill(Color.WHITE);
+            gamepiece.setStroke(Color.BLACK);
             /* Genomsynlig */
         } else {
-            brick.setFill(Color.TRANSPARENT);
-            brick.setStroke(Color.TRANSPARENT);
+            gamepiece.setFill(Color.TRANSPARENT);
+            gamepiece.setStroke(Color.TRANSPARENT);
         }
-        return brick;
+        return gamepiece;
     }
 
     /**
@@ -75,12 +75,10 @@ public class BoardTile extends Pane {
      *
      * @param player
      */
-    public void brickClicked(Player player) {
+    public void tileClicked(Player player) {
 
         /* Spelaren som skickas in hanterar mouseevents med anrop till setMoves */
         this.setOnMouseClicked(event -> {
-            if(!this.getChildren().isEmpty())
-                this.getChildren().clear();
             player.setMove(row, col); // skicka event?
 
         });
