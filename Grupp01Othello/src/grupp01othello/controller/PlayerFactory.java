@@ -5,7 +5,7 @@
  */
 package grupp01othello.controller;
 
-import grupp01othello.model.GameGrid;
+import grupp01othello.model.OthelloGrid;
 import grupp01othello.model.players.*;
 import grupp01othello.view.GameBoard;
 import grupp01othello.view.dialog.setUpGameDialog;
@@ -17,10 +17,10 @@ public class PlayerFactory {
 
     Player player1, player2;
     String playerName,playerType,playerName2,playerType2;
-    GameGrid grid;
+    OthelloGrid grid;
     GameBoard board;
 
-    PlayerFactory(GameGrid grid, GameBoard board) {
+    PlayerFactory(OthelloGrid grid, GameBoard board) {
         
     setUpGameDialog dialog;
         dialog = new setUpGameDialog();

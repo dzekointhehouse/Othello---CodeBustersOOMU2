@@ -1,4 +1,5 @@
 package grupp01othello.controller;
+
 import grupp01othello.view.dialog.WinnerDialog;
 import grupp01othello.model.players.Player;
 import grupp01othello.view.GameFrame;
@@ -11,11 +12,12 @@ import javafx.application.Platform;
  * Created by optimusprime (Elvir) on 2016-09-27.
  */
 public class GameManager implements Runnable {
+
     WinnerDialog win;
     GameFrame gameframe;
     private final int SIZE = 8;
     String winner;
-    GameGrid gamegrid;
+    OthelloGrid gamegrid;
     GameBoard gameboard;
     PlayerFactory managePlayers;
     Player player1, player2;
@@ -23,7 +25,7 @@ public class GameManager implements Runnable {
     public GameManager(Stage primaryStage) {
         this.win = new WinnerDialog();
         gameframe = new GameFrame(primaryStage);
-        gamegrid = new GameGrid(SIZE); // Subject
+        gamegrid = new OthelloGrid(SIZE); // Subject
         gameboard = new GameBoard(gamegrid, SIZE); // Observer
         managePlayers = new PlayerFactory(gamegrid, gameboard);
     }
@@ -44,8 +46,6 @@ public class GameManager implements Runnable {
             player2 = managePlayers.getPlayerTwo();
 
             playerTurn();
-            
-      
 
         } catch (Exception e) {
             e.getStackTrace();
@@ -79,44 +79,40 @@ public class GameManager implements Runnable {
      * Denna metod skiftar spelarnas tur, spelaren som skickas som första
      * parameter är den som väntar på draget från användaren.
      */
-    public void playerTurn() {
+    public void playerTurn() { //playgame istället? typ
 
-        new Thread(new Runnable() {
+        new Thread(() -> {
 
-            @Override
-            public void run() {
+            int turns = 0;
 
-                int turns = 0;
-                while (true) {
-                    if(gamegrid.boardIsFull()){
-                        System.out.println(""+gamegrid.win());
-                        //anropa dialogen
-                      Platform.runLater(new Runnable(){ 
-                          
-                          
-                        
+            while (true) {
+                if (gamegrid.boardIsFull()) {
+                    System.out.println("" + gamegrid.win());
+                    //anropa dialogen
+                    Platform.runLater(() -> {
+                        // dialogen ska skriva namnet ist inte färg.
+                        win.winBox(gamegrid.win());
+                    });
 
-                            @Override
-                            public void run() {
-                                // dialogen ska skriva namnet ist inte färg.
-                                 win.winBox(gamegrid.win());
-                            }
-                      });
-
-                    
-                     
-                     break;
-                    }
-                    if (turns % 2 == 0) {
-                        handleMove(player1);
-                        turns++;
-                    } else {
-                        handleMove(player2);
-                        turns++;
-                    }
+                    break;
+                }
+                if (turns % 2 == 0) {
+                    showAvailableMoves(player1);
+                    handleMove(player1);
+                    turns++;
+                } else {
+                    showAvailableMoves(player2);
+                    handleMove(player2);
+                    turns++;
                 }
             }
         }).start();
 
+    }
+
+    public void showAvailableMoves(Player player) {
+        Platform.runLater(() -> {
+            gameboard.showLegalMoves(gamegrid.getLegalMoves(player.markerID));
+        });
     }
 }

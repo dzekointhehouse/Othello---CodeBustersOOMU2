@@ -1,11 +1,11 @@
 package grupp01othello.view;
 
-import grupp01othello.model.Move;
 import grupp01othello.model.players.Player;
-import grupp01othello.model.Subject;
-import java.util.ArrayList;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import grupp01othello.model.GameGrid;
+import grupp01othello.model.Move;
+import java.util.ArrayList;
 
 /**
  * Created by optimusprime (Elvir) on 2016-09-27.
@@ -17,10 +17,10 @@ public class GameBoard implements GridObserver {
     private final int SIZE;
     BoardTile[][] tile;
 
-    private Subject gamegrid;
+    private GameGrid gamegrid;
 
     /* konstruktorn: tar in ett objekt att observera, och storleken på brädan */
-    public GameBoard(Subject gamegrid, int size) {
+    public GameBoard(GameGrid gamegrid, int size) {
 
         SIZE = size;
         stage = new Stage();
@@ -69,14 +69,15 @@ public class GameBoard implements GridObserver {
 
     /**
      * updateGrid uppdaterar GUIn när den underliggande observerade objektet
-     * uppdateras. (då anropar den denna metod). Griden skickas med vid
-     * uppdatering.
+     * uppdateras. (då anropar den denna metod). 
      *
      * @param grid
      */
     @Override
-    public void updateGrid(int[][] grid) {
-
+    public void updateGrid() {
+        
+        int[][] grid = gamegrid.getGrid();
+        
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if(!tile[row][col].getChildren().isEmpty())
@@ -100,5 +101,14 @@ public class GameBoard implements GridObserver {
             }
         }
     }
-
+    
+    public void showLegalMoves(ArrayList<Move> allPossibleMoves){
+        Move move;       
+        for(int i = 0; i < allPossibleMoves.size(); i++){
+            move = allPossibleMoves.get(i);
+            int row = move.getRow();
+            int col = move.getColumn();           
+            tile[row][col].getChildren().add(tile[row][col].addPiece(666));
+        }
+    }
 }

@@ -5,7 +5,7 @@
  */
 package grupp01othello.model.players;
 
-import grupp01othello.model.GameGrid;
+import grupp01othello.model.OthelloGrid;
 import grupp01othello.model.Move;
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,9 +18,9 @@ import java.util.Random;
 public class LocalComputerPlayer extends Player {
 
     private Move move;
-    GameGrid grid;
+    OthelloGrid grid;
 
-    public LocalComputerPlayer(int markerID, String playerName, GameGrid grid) {
+    public LocalComputerPlayer(int markerID, String playerName, OthelloGrid grid) {
         this.grid = grid;
         super.setID(markerID);
         super.setName(playerName);
@@ -36,7 +36,7 @@ public class LocalComputerPlayer extends Player {
     @Override
     public Move getMove() {
         try {
-            Thread.sleep(50);
+            Thread.sleep(2000);
             generateMove();
         } finally {
             this.hasMadeMoveProperty().set(false);
@@ -46,7 +46,7 @@ public class LocalComputerPlayer extends Player {
 
     public void generateMove() {
 
-        ArrayList<Move> legalMoves = grid.getAllLegalMoves(markerID);
+        ArrayList<Move> legalMoves = grid.getLegalMoves(markerID);
 
         if (legalMoves.isEmpty()) {
             this.hasMadeMoveProperty().set(true); // har gjort ett drag, om det inte finns några lagliga drag att göra.

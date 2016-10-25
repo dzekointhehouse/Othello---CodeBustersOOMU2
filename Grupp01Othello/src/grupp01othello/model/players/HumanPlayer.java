@@ -5,7 +5,7 @@
  */
 package grupp01othello.model.players;
 
-import grupp01othello.model.GameGrid;
+import grupp01othello.model.OthelloGrid;
 import grupp01othello.model.Move;
 import grupp01othello.view.GameBoard;
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ import java.util.ArrayList;
 public class HumanPlayer extends Player {
 
     private Move move;
-    GameGrid grid;
-    GameBoard board;
+    private OthelloGrid grid;
+    private GameBoard board;
 
-    public HumanPlayer(int markerID, GameGrid grid, GameBoard board) {
+    public HumanPlayer(int markerID, OthelloGrid grid, GameBoard board) {
         this.grid = grid;
         this.board = board;
         super.setID(markerID);
@@ -38,7 +38,7 @@ public class HumanPlayer extends Player {
     @Override
     public void setMove(int row, int col) {
 
-        ArrayList<Move> legalMoves = grid.getAllLegalMoves(markerID);
+        ArrayList<Move> legalMoves = grid.getLegalMoves(markerID);
 
         for (int i = 0; i < legalMoves.size(); i++) {
             if (row == legalMoves.get(i).getRow() && col == legalMoves.get(i).getColumn()) {

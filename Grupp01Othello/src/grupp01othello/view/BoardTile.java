@@ -24,7 +24,7 @@ public class BoardTile extends Pane {
         /* row och col skickas vid event. */
         this.row = row;
         this.col = col;
-        
+
         this.setPrefSize(2000, 2000);
 
     }
@@ -49,21 +49,32 @@ public class BoardTile extends Pane {
                 this.widthProperty().divide(2));
         gamepiece.centerYProperty().bind(
                 this.heightProperty().divide(2));
-        
+
         InnerShadow is = new InnerShadow();
-        gamepiece.setEffect(is);
-            /* 1 = Svart Bricka */
-        if (markerID == 1) {
-            gamepiece.setFill(Color.BLACK);
-            gamepiece.setStroke(Color.WHITE);
-            /* 2 = vit Bricka */
-        } else if (markerID == 2) {
-            gamepiece.setFill(Color.WHITE);
-            gamepiece.setStroke(Color.BLACK);
-            /* Genomsynlig */
-        } else {
-            gamepiece.setFill(Color.TRANSPARENT);
-            gamepiece.setStroke(Color.TRANSPARENT);
+
+        /* 1 = Svart Bricka */
+        switch (markerID) {
+            case 666:
+                gamepiece.setFill(Color.TRANSPARENT);
+                gamepiece.setStroke(Color.GREEN);
+                break;
+            case 1:
+                gamepiece.setFill(Color.BLACK);
+                gamepiece.setStroke(Color.DARKGREY);
+                is.setColor(Color.WHITE);
+                gamepiece.setEffect(is);
+                /* 2 = vit Bricka */
+                break;
+            case 2:
+                gamepiece.setFill(Color.WHITE);
+                gamepiece.setStroke(Color.DARKGREY);
+                gamepiece.setEffect(is);
+                /* Genomsynlig */
+                break;
+            default:
+                gamepiece.setFill(Color.TRANSPARENT);
+                gamepiece.setStroke(Color.TRANSPARENT);
+                break;
         }
         return gamepiece;
     }
@@ -83,5 +94,5 @@ public class BoardTile extends Pane {
 
         });
     }
-    
+
 }
