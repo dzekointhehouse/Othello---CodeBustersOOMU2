@@ -15,13 +15,13 @@ import java.util.ArrayList;
  */
 public class GameGrid implements Subject {
 
-    private final int SIZE = 8;
-    private static int fullboard = 4;
-
+    private final int SIZE;
+    private int usedTiles = 4;
     private int[][] grid;
     private ArrayList<GridObserver> observers;
 
-    public GameGrid() {
+    public GameGrid(int size) {
+        SIZE = size;
         grid = new int[SIZE][SIZE];
         observers = new ArrayList<GridObserver>();
 
@@ -52,7 +52,7 @@ public class GameGrid implements Subject {
      * @return true om brädan är full, annars false.
      */
     boolean boardIsFull() {
-        return (fullboard == SIZE * SIZE);
+        return (usedTiles >= SIZE * SIZE);
 
     }
 
@@ -97,13 +97,13 @@ public class GameGrid implements Subject {
     public void notifyObserver() {
 
         for (GridObserver observer : observers) {
-            observer.update(grid); // skickar uppdaterade spel griden till observers.
+            observer.updateGrid(grid); // skickar uppdaterade spel griden till observers.
         }
     }
 
     public void playMove(Move move, int playerID) {
         if ((move.getRow() >= 0) && (move.getColumn() >= 0)) {
-            fullboard++;
+            usedTiles++;
             processMove(playerID, move.getRow(), move.getColumn());
         }
 
@@ -192,5 +192,6 @@ public class GameGrid implements Subject {
         }
         return allLegalMoves;
     }
+
 
 }

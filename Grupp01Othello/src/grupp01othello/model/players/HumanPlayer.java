@@ -61,7 +61,7 @@ public class HumanPlayer extends Player {
 
         while (!this.hasMadeMoveProperty().get()) { // väntar på drag ett drag.
             try {
-                /* skickar denna instansen som handler i gameboard. */
+                /* skickar denna instansen som hanterare av event i gameboard. */
                 board.handleGameBoard(this);
             } catch (Exception e) {
                 e.getStackTrace();

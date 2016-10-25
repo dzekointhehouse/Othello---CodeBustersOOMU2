@@ -5,10 +5,7 @@
  */
 package grupp01othello.model.players;
 
-import grupp01othello.controller.*;
-import grupp01othello.model.GameGrid;
 import grupp01othello.model.Move;
-import java.util.ArrayList;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 //exit
