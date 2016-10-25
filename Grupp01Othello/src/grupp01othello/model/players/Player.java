@@ -16,13 +16,13 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 public abstract class Player {
 
-    private BooleanProperty hasMadeMove = new SimpleBooleanProperty(false);
+    private BooleanProperty hasMadeMove;
 
     protected String name;
     public int markerID;
 
     public Player() {
-
+        hasMadeMove = new SimpleBooleanProperty(false);
     }
 
     public void setName(String name) {
