@@ -53,7 +53,7 @@ public class LocalComputerPlayer extends Player {
             resetMove();
         } else {
             Random randomMove = new Random();
-            int index = randomMove.nextInt(legalMoves.size() - 1); // slumpar genom möjliga drag.
+            int index = randomMove.nextInt(legalMoves.size()); // slumpar genom möjliga drag.
 
             move.setRow(legalMoves.get(index).getRow());
             move.setColumn(legalMoves.get(index).getColumn()); // sätter in slumpade dragen som move.

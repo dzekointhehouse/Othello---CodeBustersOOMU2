@@ -49,7 +49,7 @@ public class GameGrid implements Subject {
      *
      * @return true om brädan är full, annars false.
      */
-    boolean boardIsFull() {
+   public boolean boardIsFull() {
         return (usedTiles >= SIZE * SIZE);
 
     }
@@ -60,7 +60,7 @@ public class GameGrid implements Subject {
      * vilken som har mest antal spelpjäser av sin färg dvs. räknar ut vem som
      * har vunnit
      */
-    String win() {
+    public String win() {
         int black = 0, white = 0;
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
@@ -75,9 +75,10 @@ public class GameGrid implements Subject {
         }
         if (black > white) {
             return "black";
-        }
-
+        }else if(white > black){
         return "white";
+        }
+        return "draw";
     }
 
     @Override

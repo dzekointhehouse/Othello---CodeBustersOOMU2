@@ -13,15 +13,20 @@ import javafx.scene.control.Alert.AlertType;
  * @author Markus
  */
 public class WinnerDialog {
-//exit
-    WinnerDialog() {
-        Alert alert = new Alert(AlertType.INFORMATION);
+
+   public WinnerDialog() {
+       
+
+    }
+   public void winBox(String winner){
+    Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
         alert.setContentText("I have a great message for you!\n");
-        alert.setContentText(/*player+*/" WIN!");
+        alert.setContentText(winner + " WIN!");
 
         alert.showAndWait();
-
-    }
+ 
+   
+   }
 }
