@@ -73,8 +73,7 @@ public class GameBoard implements GridObserver {
      *
      * @param grid
      */
-    @Override
-    public void updateGrid() {
+    public void updateGrid(int[][] gameGrid) {
         
         int[][] grid = gamegrid.getGrid();
         

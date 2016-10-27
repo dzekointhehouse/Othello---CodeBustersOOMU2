@@ -28,7 +28,9 @@ public abstract class Player {
     public void setName(String name) {
         this.name = name;
     }
-
+    public String getName(){
+    return name;
+    }
     public void setID(int markerID) {
         this.markerID = markerID;
     }

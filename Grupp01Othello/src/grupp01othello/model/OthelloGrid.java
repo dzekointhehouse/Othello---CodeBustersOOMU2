@@ -97,7 +97,7 @@ public class OthelloGrid implements GameGrid {
     public void notifyObserver() {
 
         for (GridObserver observer : observers) {
-            observer.updateGrid(); // skickar uppdaterade spel griden till observers.
+            observer.updateGrid(this.grid); // skickar uppdaterade spel griden till observers.
         }
     }
 
@@ -109,6 +109,12 @@ public class OthelloGrid implements GameGrid {
 
         notifyObserver();
     }
+    /**
+     * processMove 
+     * @param markerID
+     * @param row
+     * @param col 
+     */
 
     public void processMove(int markerID, int row, int col) {
         for (int i = -1; i <= 1; i++) {
@@ -141,7 +147,16 @@ public class OthelloGrid implements GameGrid {
             return false;
         }
     }
-
+    /**
+     * legalMove startar den rekursiva processen att kolla om det är lagligt
+     * att lägga där du vill lägga 
+     * 
+     * 
+     * @param markerID 
+     * @param row 
+     * @param col
+     * @return 
+     */
     public boolean legalMove(int markerID, int row, int col) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -169,11 +184,7 @@ public class OthelloGrid implements GameGrid {
                 return false;
             }
         }
-        if (processPath(colour, row + nextRow, col + nextCol, nextRow, nextCol)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (processPath(colour, row + nextRow, col + nextCol, nextRow, nextCol));
     }
 
     public ArrayList<Move> getLegalMoves(int markerID) {

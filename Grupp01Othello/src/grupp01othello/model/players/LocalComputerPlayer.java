@@ -36,13 +36,16 @@ public class LocalComputerPlayer extends Player {
     @Override
     public Move getMove() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             generateMove();
         } finally {
             this.hasMadeMoveProperty().set(false);
             return move;
         }
     }
+    /**
+     * genererar de möjliga drag som spelaren kan göra
+     */
 
     public void generateMove() {
 

@@ -20,7 +20,7 @@ public class HumanPlayer extends Player {
     private OthelloGrid grid;
     private GameBoard board;
 
-    public HumanPlayer(int markerID, OthelloGrid grid, GameBoard board) {
+    public HumanPlayer(int markerID, String name, OthelloGrid grid, GameBoard board) {
         this.grid = grid;
         this.board = board;
         super.setID(markerID);

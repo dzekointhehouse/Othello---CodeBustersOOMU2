@@ -6,6 +6,7 @@ import grupp01othello.view.GameFrame;
 import grupp01othello.view.GameBoard;
 import javafx.stage.Stage;
 import grupp01othello.model.*;
+import grupp01othello.view.dialog.DrawDialog;
 import javafx.application.Platform;
 
 /**
@@ -13,10 +14,11 @@ import javafx.application.Platform;
  */
 public class GameManager implements Runnable {
 
+    DrawDialog draw;
     WinnerDialog win;
     GameFrame gameframe;
     private final int SIZE = 8;
-    String winner;
+    String winner,colorOfWinner;
     OthelloGrid gamegrid;
     GameBoard gameboard;
     PlayerFactory managePlayers;
@@ -79,7 +81,7 @@ public class GameManager implements Runnable {
      * Denna metod skiftar spelarnas tur, spelaren som skickas som första
      * parameter är den som väntar på draget från användaren.
      */
-    public void playerTurn() { //playgame istället? typ
+    public void playerTurn() {
 
         new Thread(() -> {
 
@@ -88,10 +90,20 @@ public class GameManager implements Runnable {
             while (true) {
                 if (gamegrid.boardIsFull()) {
                     System.out.println("" + gamegrid.win());
-                    //anropa dialogen
+                 
+                    colorOfWinner = gamegrid.win();
+                    if(colorOfWinner == "Black"){
+                    winner = player1.getName().toString();
+                    }  else{
+                    winner = player2.getName().toString();        
+                    
+                    }
                     Platform.runLater(() -> {
-                        // dialogen ska skriva namnet ist inte färg.
-                        win.winBox(gamegrid.win());
+                        if (!gamegrid.win().equals("Draw")) {
+                            win.winBox(winner);
+                        }
+                        draw.drawBox();
+
                     });
 
                     break;

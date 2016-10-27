@@ -1,7 +1,7 @@
 package grupp01othello.view;
 
 import grupp01othello.controller.ExitHandler;
-import grupp01othello.controller.ThemeHandler;
+import grupp01othello.controller.NewGameHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -50,7 +50,7 @@ public class GameFrame {
         this.topPane = new StackPane();
         this.mainScene = new Scene(mainframe, minWidth, minHeight);
         this.lblTurns = new Label("Turns Left");
-
+        newGameButton();
         ExitButton();
 
     }
@@ -130,6 +130,16 @@ public class GameFrame {
             ExitHandler exit = new ExitHandler();
             exit.handle(e);
         });
+    }
+   private void newGameButton(){
+    btNewSession.setOnAction(e ->{
+        
+    NewGameHandler newGame = new NewGameHandler();
+    newGame.handle(e);
+    });
+    
+    
+    
     }
 
 

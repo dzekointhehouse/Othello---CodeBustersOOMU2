@@ -8,7 +8,9 @@ package grupp01othello.controller;
 import grupp01othello.model.OthelloGrid;
 import grupp01othello.model.players.*;
 import grupp01othello.view.GameBoard;
+import grupp01othello.view.dialog.PlayerExists;
 import grupp01othello.view.dialog.setUpGameDialog;
+
 /**
  *
  * @author Markus, Elvir
@@ -16,35 +18,55 @@ import grupp01othello.view.dialog.setUpGameDialog;
 public class PlayerFactory {
 
     Player player1, player2;
-    String playerName,playerType,playerName2,playerType2;
+    String playerName, playerType, playerName2, playerType2;
     OthelloGrid grid;
     GameBoard board;
-
+    /**
+     * PlayerFactory skapar Dialoger till användaren för att skapa spelare, bestämma
+     * namn och typ av spelare
+     * ´
+     * @param grid
+     * @param board 
+     */
     PlayerFactory(OthelloGrid grid, GameBoard board) {
-        
-    setUpGameDialog dialog;
+        PlayerExists existsDialog;
+        setUpGameDialog dialog;
         dialog = new setUpGameDialog();
         this.grid = grid;
         this.board = board;
-     
-       playerType = dialog.startUpScene();
-    // playerType = dialog.setCheckBox(); //döp metoden till setTypeOfPlayer?
-   //  playerName = dialog.setComboBox();
-//     
-//     if(playerType.equals("Human"))
-//       player1 = new HumanPlayer(1,grid,board);
-//     
-      player1 = new LocalComputerPlayer(1, "elvir", grid);
-                player2 = new LocalComputerPlayer(2, "Markus", grid);
 
-//        player1 = new HumanPlayer(1, grid, board);
- //     player2 = new HumanPlayer(2, grid, board);
+        playerName = dialog.InfoBoxName();
+        System.out.println("" + playerName);
+        playerType = dialog.InfoBoxTypePlayer();
+        playerName2 = dialog.InfoBoxName();
+        System.out.println("" + playerName2);
+        playerType2 = dialog.InfoBoxTypePlayer();
 
-        //göra såhär ist? mkt enklare
-//        typePlayer = dialog.infoBox();
-//        name = dialog.infoBoxName();
+        if (playerName.equals(playerName2)) {
+            existsDialog = new PlayerExists();
+            existsDialog.PlayerExistsAlert();
+            playerName2 = dialog.InfoBoxName();
+            if (playerName2.equals(playerName)) {
+                existsDialog.PlayerExistsAlert();
+                playerName2 = dialog.InfoBoxName();
+            }
+           
+        }
+        if (playerType.equals("Human")) {
+            player1 = new HumanPlayer(1, playerName, grid, board);
+        } else if (playerType.equals("LocalComputerPlayer")) {
+            player1 = new LocalComputerPlayer(1, playerName, grid);
+        } else {
+            player1 = new RemoteComputerPlayer(1, playerName, grid);
+        }
+        if (playerType2.equals("Human")) {
+            player2 = new HumanPlayer(2, playerName2, grid, board);
+        } else if (playerType2.equals("LocalComputerPlayer")) {
+            player2 = new LocalComputerPlayer(2, playerName2, grid);
+        } else {
+            player2 = new RemoteComputerPlayer(2, playerName2, grid);
+        }
 
-    //    player1 = new HumanPlayer(2, name);
     }
 
     public Player getPlayerOne() {

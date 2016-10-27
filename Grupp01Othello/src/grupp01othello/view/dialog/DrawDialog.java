@@ -6,28 +6,26 @@
 package grupp01othello.view.dialog;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 /**
  *
  * @author Markus
  */
-public class WinnerDialog {
-
-   public WinnerDialog() {
+public class DrawDialog {
+    
+   public DrawDialog() {
        
 
     }
    /**
-    * winBox skickar ut en dialog som skriver vem som har vunnit!
-    * @param winner innehåller vinnaren av matchen
+    * drawBox en dialog som informerar att matchen har slutat lika "draw"
     */
-   public void winBox(String winner){
-    Alert alert = new Alert(AlertType.INFORMATION);
+   public void drawBox(){
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
-        alert.setContentText("I have a great message for you!\n");
-        alert.setContentText(winner + " WIN!");
+        alert.setContentText("I have a message for you!\n");
+        alert.setContentText("its a DRAW");
 
         alert.showAndWait();
  
