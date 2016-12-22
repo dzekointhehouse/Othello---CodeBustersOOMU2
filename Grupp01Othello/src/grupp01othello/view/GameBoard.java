@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 public class GameBoard implements GridObserver {
 
-    private Stage stage;
     private GridPane board;
     private final int SIZE;
     BoardTile[][] tile;
@@ -23,7 +22,6 @@ public class GameBoard implements GridObserver {
     public GameBoard(GameGrid gamegrid, int size) {
 
         SIZE = size;
-        stage = new Stage();
         board = new GridPane();
         tile = new BoardTile[8][8];
 
@@ -48,9 +46,9 @@ public class GameBoard implements GridObserver {
                 board.add(tile[row][col] = new BoardTile(row, col), col, row); //lägger in celler
 
                 if ((row + col) % 2 == 0) {
-                    tile[row][col].setStyle("-fx-background-color: rgba(162, 150, 7, 0.81)");
+                    tile[row][col].setStyle("-fx-background-color: rgba(255, 255, 255, 0.81)");
                 } else {
-                    tile[row][col].setStyle("-fx-background-color: rgba(30, 48, 58, 0.8)");
+                    tile[row][col].setStyle("-fx-background-color: rgba(0, 0, 0, 0.81)");
                 }
             }
         }

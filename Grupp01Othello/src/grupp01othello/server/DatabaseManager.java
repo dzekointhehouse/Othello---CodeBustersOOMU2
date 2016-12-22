@@ -39,7 +39,7 @@ public class DatabaseManager {
             statement.executeUpdate(updateStatement);
             //update
         }
-
+ 
         connection.close(); // Close the connection
     }
 
@@ -94,6 +94,13 @@ public class DatabaseManager {
     static public void insertToTable() throws SQLException {
         String insertStatement = "INSERT INTO OnlinePlayers VALUES ('" + groupID + "', '" + ipAddress + "', '" + portNr + "')";
         statement.executeUpdate(insertStatement);
+
+    }
+    
+    static public void getServerConnectionDetails(int GroupID) throws SQLException{
+
+       CallableStatement statement = connection.prepareCall("{call GetConnectionDetails("+GroupID+")}");
+       resultSet = statement.executeQuery();
 
     }
 }

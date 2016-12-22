@@ -9,7 +9,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Random;
+import java.sql.ResultSet;
 
 /**
  *
@@ -17,11 +17,11 @@ import java.util.Random;
  */
 public class OthelloClient {
 
-    int port = 6969;
-    String host = "localhost";
-    DataInputStream fromServer;
-    DataOutputStream toServer;
-    Socket socket;
+    private int port = 6969;
+    private String host;
+    private DataInputStream fromServer;
+    private DataOutputStream toServer;
+    private Socket socket;
 
     /**
      * våran othelloclient som ansluter till servern
@@ -29,22 +29,36 @@ public class OthelloClient {
      * @throws IOException
      */
     public OthelloClient() throws IOException {
+        this.host = "localhost";
 
         connectToServer();
 
     }
-/**
- * Anslutnings metoden till servern
- * @throws IOException 
- */
+
+    /**
+     * Anslutnings metoden till servern
+     *
+     * @throws IOException
+     */
     private void connectToServer() throws IOException {
         try {
+            socket = new Socket(host, port);
             fromServer = new DataInputStream(socket.getInputStream());
             toServer = new DataOutputStream(socket.getOutputStream());
-            socket = new Socket(host, port);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /* Skickar meddelande till servern. */
+    public void sendtoServer(int message) throws IOException {
+        toServer.write(message);
+        toServer.flush();
+    }
+    /* Läser retur värde från servern. */
+    public int recieveFromServer() throws IOException {
+        int answer = fromServer.read();
+        return answer;
     }
 
 }

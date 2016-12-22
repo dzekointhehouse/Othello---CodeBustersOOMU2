@@ -18,7 +18,7 @@ public class GameManager implements Runnable {
     WinnerDialog win;
     GameFrame gameframe;
     private final int SIZE = 8;
-    String winner,colorOfWinner;
+    String winner, colorOfWinner;
     OthelloGrid gamegrid;
     GameBoard gameboard;
     PlayerFactory managePlayers;
@@ -89,17 +89,17 @@ public class GameManager implements Runnable {
 
             while (true) {
                 if (gamegrid.boardIsFull()) {
-                    System.out.println("" + gamegrid.win());
-                 
-                    colorOfWinner = gamegrid.win();
-                    if(colorOfWinner == "Black"){
-                    winner = player1.getName().toString();
-                    }  else{
-                    winner = player2.getName().toString();        
-                    
+                    System.out.println("" + gamegrid.getWinner());
+
+                    colorOfWinner = gamegrid.getWinner();
+                    if (colorOfWinner == "Black") {
+                        winner = player1.getName().toString();
+                    } else {
+                        winner = player2.getName().toString();
+
                     }
                     Platform.runLater(() -> {
-                        if (!gamegrid.win().equals("Draw")) {
+                        if (!gamegrid.getWinner().equals("Draw")) {
                             win.winBox(winner);
                         }
                         draw.drawBox();
@@ -109,10 +109,12 @@ public class GameManager implements Runnable {
                     break;
                 }
                 if (turns % 2 == 0) {
+                    gameframe.updateScore(gamegrid.scoreBoard());
                     showAvailableMoves(player1);
                     handleMove(player1);
                     turns++;
                 } else {
+                    gameframe.updateScore(gamegrid.scoreBoard());
                     showAvailableMoves(player2);
                     handleMove(player2);
                     turns++;

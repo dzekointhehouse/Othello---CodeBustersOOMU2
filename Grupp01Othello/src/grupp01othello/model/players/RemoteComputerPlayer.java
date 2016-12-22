@@ -8,25 +8,22 @@ package grupp01othello.model.players;
 import grupp01othello.model.Move;
 import grupp01othello.model.OthelloGrid;
 import java.util.ArrayList;
-import java.util.Random;
 import grupp01othello.server.*;
-import grupp01othello.server.Othelloserver.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
- * @author Markus
+ * @author Markus skapade filen, men Elvir implementerade :P:P
  */
-public class RemoteComputerPlayer extends Player{
- 
-    private Move move;
-    OthelloGrid grid;
+public class RemoteComputerPlayer extends Player {
 
-    public RemoteComputerPlayer(int markerID, String playerName, OthelloGrid grid) {
-        //initisera Server
-        // Server server = new Server();
-        this.grid = grid;
-        super.setID(markerID);
-        super.setName(playerName);
-        move = new Move(-1, -1);
+    private OthelloClient client;
+    /* Konstruktor */
+    public RemoteComputerPlayer(int markerID, String playerName, OthelloGrid grid) throws IOException {
+        super(markerID, playerName, grid);
+        client = new OthelloClient();
     }
 
     @Override
@@ -38,31 +35,24 @@ public class RemoteComputerPlayer extends Player{
     @Override
     public Move getMove() {
         try {
-            Thread.sleep(2000);
-            //DataInputStream: Array av möjliga drag 
-            //DataOutputStrea: skicka 1 drag
-            generateMove();
-        } finally {
-            this.hasMadeMoveProperty().set(false);
-            return move;
-        }
-    }
 
-    public void generateMove() {
+            ArrayList<Move> legalMoves = grid.getLegalMoves(markerID);
 
-        ArrayList<Move> legalMoves = grid.getLegalMoves(markerID);
-
-        if (legalMoves.isEmpty()) {
-            this.hasMadeMoveProperty().set(true); // har gjort ett drag, om det inte finns några lagliga drag att göra.
             resetMove();
-        } else {
-            Random randomMove = new Random();
-            int index = randomMove.nextInt(legalMoves.size()); // slumpar genom möjliga drag.
-
-            move.setRow(legalMoves.get(index).getRow());
-            move.setColumn(legalMoves.get(index).getColumn()); // sätter in slumpade dragen som move.
-            this.hasMadeMoveProperty().set(true); // true = har gjort ett drag.
+            /* Kollar så att det finns lagliga drag innan vi skickar till servern. */
+            if (legalMoves.size() != 0) {
+                //System.out.print(legalMoves.size());
+                    client.sendtoServer(legalMoves.size());
+                    this.move = legalMoves.get(client.recieveFromServer());
+            } else {
+                /* Återställer draget ifall det inte kommer finnas lagliga drag. */
+                resetMove();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(RemoteComputerPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.print("row: " + move.getRow() + "col: " + move.getColumn());
+        return move;
     }
 
     /**
@@ -72,5 +62,5 @@ public class RemoteComputerPlayer extends Player{
     public void resetMove() {
         move.setColumn(-1);
         move.setRow(-1);
-    }   
+    }
 }

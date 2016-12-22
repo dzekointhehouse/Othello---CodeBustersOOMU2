@@ -18,7 +18,6 @@ public class OthelloGrid implements GameGrid {
     private int[][] grid;
     private ArrayList<GridObserver> observers;
 
-
     public OthelloGrid(int size) {
         SIZE = size;
         grid = new int[SIZE][SIZE];
@@ -50,18 +49,21 @@ public class OthelloGrid implements GameGrid {
      *
      * @return true om brädan är full, annars false.
      */
-   public boolean boardIsFull() {
+    public boolean boardIsFull() {
         return (usedTiles >= SIZE * SIZE);
 
     }
 
     /**
-     * win metoden loopar genom hela matrisen och ökar 2 variablar beroende på
-     * om den träffar på en svart eller vit spelpjäs och den returnerar sedan
-     * vilken som har mest antal spelpjäser av sin färg dvs. räknar ut vem som
-     * har vunnit
+     * getWinner metoden loopar genom hela matrisen och ökar 2 variablar
+     * beroende på om den träffar på en svart eller vit spelpjäs och den
+     * returnerar sedan vilken som har mest antal spelpjäser av sin färg dvs,
+     * räknar ut vem som har vunnit, såklart är getWinner ett mer intuitivt namn
+     * än win :)
+     *
+     * @return
      */
-    public String win() {
+    public String getWinner() {
         int black = 0, white = 0;
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
@@ -76,8 +78,8 @@ public class OthelloGrid implements GameGrid {
         }
         if (black > white) {
             return "black";
-        }else if(white > black){
-        return "white";
+        } else if (white > black) {
+            return "white";
         }
         return "draw";
     }
@@ -109,53 +111,56 @@ public class OthelloGrid implements GameGrid {
 
         notifyObserver();
     }
+
     /**
-     * processMove 
+     * processMove
+     *
      * @param markerID
      * @param row
-     * @param col 
+     * @param col
      */
-
     public void processMove(int markerID, int row, int col) {
+        if(legalMove(markerID, row, col)){
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 processPath(markerID, row + i, col + j, i, j);
             }
         }
         grid[row][col] = markerID;
-        notifyObserver();
+        }
     }
 
-    private boolean processPath(int colour, int row, int col, int nextRow, int nextCol) {
+    private boolean processPath(int markerID, int row, int col, int nextRow, int nextCol) {
         if ((row < 0) || (col < 0) || (row >= SIZE) || (col >= SIZE)) {
             return false;
         }
         if (grid[row][col] == 0) {
             return false;
         }
-        if ((grid[row][col] == colour)) {
+        if ((grid[row][col] == markerID)) {
             if (grid[row - nextRow][col - nextCol] != 0) {
                 return true;
             } else {
                 return false;
             }
         }
-        if (processPath(colour, row + nextRow, col + nextCol, nextRow, nextCol)) {
-            grid[row][col] = colour;
+        if (processPath(markerID, row + nextRow, col + nextCol, nextRow, nextCol)) {
+            grid[row][col] = markerID;
             return true;
         } else {
             return false;
         }
     }
+
     /**
-     * legalMove startar den rekursiva processen att kolla om det är lagligt
-     * att lägga där du vill lägga 
-     * 
-     * 
-     * @param markerID 
-     * @param row 
+     * legalMove startar den rekursiva processen att kolla om det är lagligt att
+     * lägga där du vill lägga
+     *
+     *
+     * @param markerID
+     * @param row
      * @param col
-     * @return 
+     * @return
      */
     public boolean legalMove(int markerID, int row, int col) {
         for (int i = -1; i <= 1; i++) {
@@ -188,8 +193,8 @@ public class OthelloGrid implements GameGrid {
     }
 
     public ArrayList<Move> getLegalMoves(int markerID) {
-        
-            ArrayList<Move> legalmoves = new ArrayList<Move>();
+
+        ArrayList<Move> legalmoves = new ArrayList<Move>();
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
@@ -207,6 +212,24 @@ public class OthelloGrid implements GameGrid {
     @Override
     public int[][] getGrid() {
         return this.grid;
+    }
+
+    public String scoreBoard() {
+        int black = 0, white = 0;
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (grid[x][y] != 0) {
+                    if (grid[x][y] == 1) {
+                        black += 1;
+                    } else {
+                        white += 1;
+                    }
+                }
+            }
+        }
+        String Score = "Black pieces: " + black
+                + "\nWhite pieces: " + white;
+        return Score;
     }
 
 }

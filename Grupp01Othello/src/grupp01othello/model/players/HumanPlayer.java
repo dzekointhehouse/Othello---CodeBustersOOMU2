@@ -16,17 +16,12 @@ import java.util.ArrayList;
  */
 public class HumanPlayer extends Player {
 
-    private Move move;
-    private OthelloGrid grid;
     private GameBoard board;
-
-    public HumanPlayer(int markerID, String name, OthelloGrid grid, GameBoard board) {
-        this.grid = grid;
+    /* Konstruktor */
+    public HumanPlayer(int markerID, String playerName, OthelloGrid grid, GameBoard board) {
+        super(markerID, playerName, grid);
         this.board = board;
-        super.setID(markerID);
-        move = new Move(-1, -1);
     }
-
     /**
      * Denna metod används i Gameboard, för att få in ett nytt drag från
      * spelaren vid ett event (kanske ha ett interface mellan dem), draget som

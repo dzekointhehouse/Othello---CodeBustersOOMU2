@@ -16,15 +16,10 @@ import java.util.Random;
  * @author Markus
  */
 public class LocalComputerPlayer extends Player {
-
-    private Move move;
-    OthelloGrid grid;
-
+    /* Konstruktor */
     public LocalComputerPlayer(int markerID, String playerName, OthelloGrid grid) {
-        this.grid = grid;
-        super.setID(markerID);
-        super.setName(playerName);
-        move = new Move(-1, -1);
+        super(markerID, playerName, grid);
+
     }
 
     @Override
@@ -48,7 +43,7 @@ public class LocalComputerPlayer extends Player {
      */
 
     public void generateMove() {
-
+        
         ArrayList<Move> legalMoves = grid.getLegalMoves(markerID);
 
         if (legalMoves.isEmpty()) {
