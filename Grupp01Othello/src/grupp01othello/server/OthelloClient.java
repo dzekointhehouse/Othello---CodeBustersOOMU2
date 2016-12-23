@@ -42,6 +42,8 @@ public class OthelloClient {
      */
     private void connectToServer() throws IOException {
         try {
+            DatabaseManager db = new DatabaseManager();
+            db.getData();
             socket = new Socket(host, port);
             fromServer = new DataInputStream(socket.getInputStream());
             toServer = new DataOutputStream(socket.getOutputStream());

@@ -17,7 +17,7 @@ public class DatabaseManager {
 
     static String ipAddress, portNr, groupID;
 
-    String sqlConnectionUrl = "jdbc:sqlserver://hitsql-db.hb.se:56077;database=oomuht1601;user=oomuht1601;password=plux66";
+    String sqlConnectionUrl = "jdbc:sqlserver://hitsql-db.hb.se,56077;database=oomuht1601;user=oomuht1601;password=plux66";
     static ResultSet resultSet;
     static Statement statement;
     static Connection connection;
@@ -55,13 +55,18 @@ public class DatabaseManager {
 
     }
 
-    public ResultSet getData() throws SQLException {
+    public void getData() throws SQLException, ClassNotFoundException {
+        try{
+        initializeDatabase();
         resultSet = statement.executeQuery("select * from OnlinePlayers ");
 // Iterera igenom och visa resultatet
         while (resultSet.next()) {
             System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
         }
-        return resultSet;
+        connection.close();
+        }catch(Exception e){
+            System.out.println("funkar inte");
+        }
     }
 
     static public boolean getMetaData() throws SQLException {
