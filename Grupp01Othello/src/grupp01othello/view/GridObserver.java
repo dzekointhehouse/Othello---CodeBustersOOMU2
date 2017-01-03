@@ -5,9 +5,6 @@
  */
 package grupp01othello.view;
 
-import grupp01othello.model.Move;
-import java.util.ArrayList;
-
 /**
  *
  * @author optimusprime (Elvir)

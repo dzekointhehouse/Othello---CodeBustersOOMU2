@@ -5,6 +5,7 @@
  */
 package grupp01othello.view;
 
+import grupp01othello.controller.GameManager;
 import grupp01othello.model.players.Player;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.layout.Pane;
@@ -19,14 +20,20 @@ public class BoardTile extends Pane {
 
     private int row, col;
 
-    public BoardTile(int row, int col) {
+    /* Konstruktor */
+    public BoardTile(GameManager gm, int row, int col) {
+
 
         /* row och col skickas vid event. */
         this.row = row;
         this.col = col;
 
         this.setPrefSize(2000, 2000);
+        /* Hanterare som ligger i gamemanager */
+        this.setOnMouseClicked(event -> {
+            gm.handle(event);
 
+        });
     }
 
     /**
@@ -63,14 +70,14 @@ public class BoardTile extends Pane {
                 gamepiece.setStroke(Color.DARKGREY);
                 is.setColor(Color.WHITE);
                 gamepiece.setEffect(is);
-                /* 2 = vit Bricka */
                 break;
+            /* 2 = vit Bricka */
             case 2:
                 gamepiece.setFill(Color.WHITE);
                 gamepiece.setStroke(Color.DARKGREY);
                 gamepiece.setEffect(is);
-                /* Genomsynlig */
                 break;
+            /* Genomsynlig */
             default:
                 gamepiece.setFill(Color.TRANSPARENT);
                 gamepiece.setStroke(Color.TRANSPARENT);
@@ -79,20 +86,16 @@ public class BoardTile extends Pane {
         return gamepiece;
     }
 
-    /**
-     * Metod som kan anropas för att skicka in en spelare för att hantera ett
-     * mouse event som kan ske när cellen blir clickad. Då kan spelaren få
-     * koordinaterna genom setMove.
-     *
-     * @param player
-     */
-    public void tileClicked(Player player) {
+    public int getRow() {
+        return this.row;
+    }
 
-        /* Spelaren som skickas in hanterar mouseevents med anrop till setMoves */
-        this.setOnMouseClicked(event -> {
-            player.setMove(row, col); // skicka event?
+    public int getCol() {
+        return this.col;
+    }
 
-        });
+    public BoardTile getTile() {
+        return this;
     }
 
 }

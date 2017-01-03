@@ -14,7 +14,7 @@ public class Move {
     /* privata attribut som lagrar koordinater till matrisen */
     private int row, column;
 
-    /* konstruktorn initialiserar detta objekt med koordinater. */
+    /* konstruktorn initialiserar ett objekt med koordinater. */
     public Move(int row, int column) {
         this.row = row;
         this.column = column;
@@ -38,7 +38,7 @@ public class Move {
 
     /**
      * Getter metod för row.
-     * @return 
+     * @return row
      */
     public int getRow() {
         return this.row;
@@ -46,7 +46,7 @@ public class Move {
 
     /**
      * Getter metod för column.
-     * @return 
+     * @return column
      */
     public int getColumn() {
         return this.column;

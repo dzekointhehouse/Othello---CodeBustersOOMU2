@@ -16,6 +16,7 @@ import java.util.Random;
  * @author Markus
  */
 public class LocalComputerPlayer extends Player {
+
     /* Konstruktor */
     public LocalComputerPlayer(int markerID, String playerName, OthelloGrid grid) {
         super(markerID, playerName, grid);
@@ -32,22 +33,22 @@ public class LocalComputerPlayer extends Player {
     public Move getMove() {
         try {
             Thread.sleep(1000);
+            /* genererar ett slumpmässigt drag */
             generateMove();
         } finally {
-            this.hasMadeMoveProperty().set(false);
             return move;
         }
     }
+
     /**
-     * genererar de möjliga drag som spelaren kan göra
+     * genererar de möjliga drag som spelaren kan göra.
      */
 
     public void generateMove() {
-        
+
         ArrayList<Move> legalMoves = grid.getLegalMoves(markerID);
 
         if (legalMoves.isEmpty()) {
-            this.hasMadeMoveProperty().set(true); // har gjort ett drag, om det inte finns några lagliga drag att göra.
             resetMove();
         } else {
             Random randomMove = new Random();
@@ -55,7 +56,6 @@ public class LocalComputerPlayer extends Player {
 
             move.setRow(legalMoves.get(index).getRow());
             move.setColumn(legalMoves.get(index).getColumn()); // sätter in slumpade dragen som move.
-            this.hasMadeMoveProperty().set(true); // true = har gjort ett drag.
         }
     }
 

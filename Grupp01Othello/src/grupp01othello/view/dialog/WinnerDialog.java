@@ -28,7 +28,6 @@ public class WinnerDialog {
         alert.setHeaderText(null);
         alert.setContentText("I have a great message for you!\n");
         alert.setContentText(winner + " WIN!");
-
         alert.showAndWait();
  
    

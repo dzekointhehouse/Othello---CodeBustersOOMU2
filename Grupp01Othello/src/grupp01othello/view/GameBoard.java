@@ -1,8 +1,8 @@
 package grupp01othello.view;
 
+import grupp01othello.controller.GameManager;
 import grupp01othello.model.players.Player;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import grupp01othello.model.GameGrid;
 import grupp01othello.model.Move;
 import java.util.ArrayList;
@@ -14,12 +14,13 @@ public class GameBoard implements GridObserver {
 
     private GridPane board;
     private final int SIZE;
-    BoardTile[][] tile;
+    private BoardTile[][] tile;
 
     private GameGrid gamegrid;
+    private GameManager gm;
 
     /* konstruktorn: tar in ett objekt att observera, och storleken på brädan */
-    public GameBoard(GameGrid gamegrid, int size) {
+    public GameBoard(GameManager gm, GameGrid gamegrid, int size) {
 
         SIZE = size;
         board = new GridPane();
@@ -28,27 +29,31 @@ public class GameBoard implements GridObserver {
         /* lägger till GameGrid instansen och registrerar sig på den som observer. */
         this.gamegrid = gamegrid;
         gamegrid.register(this);
-
+        this.gm = gm;
         InitializeGameBoard();
 
     }
 
     /**
-     * Initialiserar brädan, genom att lägga in en BoardTile i varje ruta, och skickar
-     * med row och col. Vilket gör det lättare att referera till dem senare. Här får också
-     * brädan sin rutiga charm.
+     * Initialiserar brädan, genom att lägga in en BoardTile i varje ruta, och
+     * skickar med row och col. Vilket gör det lättare att referera till dem
+     * senare. Här får också brädan sin rutiga charm.
      */
     private void InitializeGameBoard() {
+
+        board.setMaxWidth(900);
+        board.setMaxHeight(900);
 
         for (int row = 0; row < SIZE; row++) {
 
             for (int col = 0; col < SIZE; col++) {
-                board.add(tile[row][col] = new BoardTile(row, col), col, row); //lägger in celler
+                /* Vi skickar med en referens till gamemanager som hanterar event från BoardTile */
+                board.add(tile[row][col] = new BoardTile(gm, row, col), col, row); //lägger in celler
 
                 if ((row + col) % 2 == 0) {
-                    tile[row][col].setStyle("-fx-background-color: rgba(255, 255, 255, 0.81)");
+                    tile[row][col].setStyle("-fx-background-color: rgba(255, 255, 255, 0.61)");
                 } else {
-                    tile[row][col].setStyle("-fx-background-color: rgba(0, 0, 0, 0.81)");
+                    tile[row][col].setStyle("-fx-background-color: rgba(0, 0, 0, 0.61)");
                 }
             }
         }
@@ -67,45 +72,39 @@ public class GameBoard implements GridObserver {
 
     /**
      * updateGrid uppdaterar GUIn när den underliggande observerade objektet
-     * uppdateras. (då anropar den denna metod). 
+     * uppdateras. (då anropar den denna metod).
      *
-     * @param grid
+     * @param gameGrid
      */
     public void updateGrid(int[][] gameGrid) {
-        
+
         int[][] grid = gamegrid.getGrid();
-        
+
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-                if(!tile[row][col].getChildren().isEmpty())
+                /* Om cellen inte är tom, så tas brickan bort */
+                if (!tile[row][col].getChildren().isEmpty()) {
                     tile[row][col].getChildren().clear();
+                }
                 tile[row][col].getChildren().add(tile[row][col].addPiece(grid[row][col]));
             }
         }
     }
 
     /**
-     * player skickas som parameter för att hantera event, spelaren skickas till
-     * varje tile, och på så sätt vet vi vilken tile som utlöste eventet.
+     * Får in alla lagliga drag som parameter och lägger in en "bricka" som då
+     * ska symbolisera att det draget är lagligt att göra i GUIn
      *
-     * @param player
+     * @param allPossibleMoves
      */
-    public void handleGameBoard(Player player) {
-
-        for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
-                tile[row][col].tileClicked(player);
-            }
-        }
-    }
-    
-    public void showLegalMoves(ArrayList<Move> allPossibleMoves){
-        Move move;       
-        for(int i = 0; i < allPossibleMoves.size(); i++){
+    public void showLegalMoves(ArrayList<Move> allPossibleMoves) {
+        Move move;
+        for (int i = 0; i < allPossibleMoves.size(); i++) {
             move = allPossibleMoves.get(i);
             int row = move.getRow();
-            int col = move.getColumn();           
+            int col = move.getColumn();
             tile[row][col].getChildren().add(tile[row][col].addPiece(666));
         }
     }
+
 }

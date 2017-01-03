@@ -13,7 +13,6 @@ import javafx.scene.control.Alert.AlertType;
 public class PlayerExists {
 
     public PlayerExists() {
-        PlayerExistsAlert();
     }
 /**
  * Aleart dialog som säger till användaren att han har matat in 2 likadana namn vilket inte är OK!

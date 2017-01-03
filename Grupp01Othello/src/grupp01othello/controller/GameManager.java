@@ -4,31 +4,38 @@ import grupp01othello.view.dialog.WinnerDialog;
 import grupp01othello.model.players.Player;
 import grupp01othello.view.GameFrame;
 import grupp01othello.view.GameBoard;
+import javafx.event.EventHandler;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import grupp01othello.model.*;
+import grupp01othello.model.players.HumanPlayer;
+import grupp01othello.view.BoardTile;
 import grupp01othello.view.dialog.DrawDialog;
 import javafx.application.Platform;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Created by optimusprime (Elvir) on 2016-09-27.
  */
-public class GameManager implements Runnable {
+public class GameManager implements Runnable, EventHandler<MouseEvent> {
 
-    DrawDialog draw;
-    WinnerDialog win;
-    GameFrame gameframe;
+    private DrawDialog draw;
+    private final WinnerDialog win;
+    private final GameFrame gameframe;
     private final int SIZE = 8;
-    String winner, colorOfWinner;
-    OthelloGrid gamegrid;
-    GameBoard gameboard;
-    PlayerFactory managePlayers;
-    Player player1, player2;
+    private String winner, colorOfWinner;
+    private final OthelloGrid gamegrid;
+    private final GameBoard gameboard;
+    private final PlayerFactory managePlayers;
+    private Player player1, player2;
+    private int activeplayer = 1;
 
+    /* Konstruktor */
     public GameManager(Stage primaryStage) {
         this.win = new WinnerDialog();
         gameframe = new GameFrame(primaryStage);
         gamegrid = new OthelloGrid(SIZE); // Subject
-        gameboard = new GameBoard(gamegrid, SIZE); // Observer
+        gameboard = new GameBoard(this, gamegrid, SIZE); // Observer
         managePlayers = new PlayerFactory(gamegrid, gameboard);
     }
 
@@ -46,8 +53,9 @@ public class GameManager implements Runnable {
             gamegrid.initiateGameGrid();
             player1 = managePlayers.getPlayerOne();
             player2 = managePlayers.getPlayerTwo();
-
-            playerTurn();
+            /* skickar spelar namnen till Gameboard så att de kan visas för användaren */
+            gameframe.setPlayerInfo(player1.getName(), player2.getName());
+            executeGameTurns();
 
         } catch (Exception e) {
             e.getStackTrace();
@@ -60,7 +68,7 @@ public class GameManager implements Runnable {
      *
      * @param player
      */
-    public void handleMove(Player player) {
+    private void handleMove(Player player) {
 
         /* getMove hämtar draget från spelaren */
         Move move = player.getMove();
@@ -78,14 +86,11 @@ public class GameManager implements Runnable {
     }
 
     /**
-     * Denna metod skiftar spelarnas tur, spelaren som skickas som första
-     * parameter är den som väntar på draget från användaren.
+     * Denna metod exekverar spelets omgångar mellan spelarna.
      */
-    public void playerTurn() {
+    private void executeGameTurns() {
 
         new Thread(() -> {
-
-            int turns = 0;
 
             while (true) {
                 if (gamegrid.boardIsFull()) {
@@ -108,25 +113,76 @@ public class GameManager implements Runnable {
 
                     break;
                 }
-                if (turns % 2 == 0) {
-                    gameframe.updateScore(gamegrid.scoreBoard());
-                    showAvailableMoves(player1);
-                    handleMove(player1);
-                    turns++;
-                } else {
-                    gameframe.updateScore(gamegrid.scoreBoard());
-                    showAvailableMoves(player2);
-                    handleMove(player2);
-                    turns++;
-                }
+                /* hanteringen av spelaren */
+                playerTurn();
             }
         }).start();
 
     }
 
-    public void showAvailableMoves(Player player) {
+    /**
+     * Hämtar lagliga drag från gamegrid och skickar till gameboard så det visas
+     * för användaren.
+     *
+     * @param player
+     */
+    private void showAvailableMoves(Player player) {
         Platform.runLater(() -> {
             gameboard.showLegalMoves(gamegrid.getLegalMoves(player.markerID));
         });
+    }
+
+    /**
+     * Returnerar den aktiva spelaren.
+     * @return aktiva spelaren
+     */
+    Player getActivePlayer() {
+        switch (activeplayer) {
+            case 1:
+                return player1;
+            case 2:
+                return player2;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Denna metoden utför den aktiva spelarens omgång och sätter nästa
+     * aktiva spelaren, anrop för att visa lagliga drag, utförande av spelarens
+     * drag och uppdatering av antet brickor vardera spelare har.
+     */
+    private void playerTurn() {
+        Player player = getActivePlayer();
+        gameframe.updateScore(gamegrid.scoreBoard());
+        showAvailableMoves(player);
+        handleMove(player);
+        gameframe.updateScore(gamegrid.scoreBoard());
+        /* Sätter den den aktiva spelaren för nästa turn */
+        if (activeplayer == 1) {
+            activeplayer = 2;
+        } else {
+            activeplayer = 1;
+        }
+    }
+
+    /**
+     * Hantering av event från mänskliga spelare
+     * @param event 
+     */
+    public void handle(MouseEvent event) {
+        /* Hämtar den aktiva spelaren som ska då 
+           hantera eventet som fås från den clickade BoardTile instansen */
+        Player player = getActivePlayer();
+
+        /* Hanterar bara eventet om användaren är av typen HumanPlayer */
+        if (player instanceof HumanPlayer) {
+            /* hämtar source objektet som är en BoardTile och skickar dess plats till spelaren */
+            BoardTile tile = (BoardTile) event.getSource();
+            //System.out.println(tile.getRow() + tile.getCol());
+            ((HumanPlayer) player).setMove(tile.getRow(), tile.getCol());
+        } else {
+            return;
+        }
     }
 }

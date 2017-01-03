@@ -5,7 +5,6 @@
 package grupp01othello.model;
 
 import grupp01othello.view.GridObserver;
-import java.util.ArrayList;
 
 /**
  *

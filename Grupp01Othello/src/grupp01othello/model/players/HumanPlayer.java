@@ -7,6 +7,7 @@ package grupp01othello.model.players;
 
 import grupp01othello.model.OthelloGrid;
 import grupp01othello.model.Move;
+import grupp01othello.view.BoardTile;
 import grupp01othello.view.GameBoard;
 import java.util.ArrayList;
 
@@ -16,12 +17,13 @@ import java.util.ArrayList;
  */
 public class HumanPlayer extends Player {
 
-    private GameBoard board;
+    private Object lock = new Object();
+
     /* Konstruktor */
     public HumanPlayer(int markerID, String playerName, OthelloGrid grid, GameBoard board) {
         super(markerID, playerName, grid);
-        this.board = board;
     }
+
     /**
      * Denna metod används i Gameboard, för att få in ett nytt drag från
      * spelaren vid ett event (kanske ha ett interface mellan dem), draget som
@@ -34,12 +36,15 @@ public class HumanPlayer extends Player {
     public void setMove(int row, int col) {
 
         ArrayList<Move> legalMoves = grid.getLegalMoves(markerID);
+        /* vi tillsätter ett lås och notifierar getmove när vi har fått ett drag. */
+        synchronized (lock) {
+            for (int i = 0; i < legalMoves.size(); i++) {
+                if (row == legalMoves.get(i).getRow() && col == legalMoves.get(i).getColumn()) {
+                    move.setRow(row);
+                    move.setColumn(col);
 
-        for (int i = 0; i < legalMoves.size(); i++) {
-            if (row == legalMoves.get(i).getRow() && col == legalMoves.get(i).getColumn()) {
-                move.setRow(row);
-                move.setColumn(col);
-                this.hasMadeMoveProperty().set(true);
+                    lock.notify();
+                }
             }
         }
 
@@ -54,21 +59,15 @@ public class HumanPlayer extends Player {
     @Override
     public Move getMove() {
 
-        while (!this.hasMadeMoveProperty().get()) { // väntar på drag ett drag.
+        /* Här låser vi och väntar på att det ska komma in ett drag. */
+        synchronized (lock) {
             try {
-                /* skickar denna instansen som hanterare av event i gameboard. */
-                board.handleGameBoard(this);
+                lock.wait();
             } catch (Exception e) {
                 e.getStackTrace();
             }
-            /* hoppa ur loopen om ett drag har gjorts (true) */
-            if (this.hasMadeMoveProperty().get()) {
-                break;
-            }
         }
-        /* ändrar till false igen inför nästa drag och
-           retunerar aktuellt drag. */
-        this.hasMadeMoveProperty().set(false);
         return move;
     }
+
 }

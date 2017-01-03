@@ -30,33 +30,34 @@ public class GameFrame {
     private VBox scoreBox;
     private TextArea txtScore;
     private StackPane topPane;
-    private Scene mainScene;
+    private Scene scene;
     private Button btNewSession;
-    private Button btExit = new Button("Avsluta");
-    private Label lblHeader = new Label("OTHELLO");
+    private Button btExit;
+    private Label lblHeader;
+    private Label playerinfo;
     private Background background;
 
     private int minWidth = 800, minHeight = 650;
 
-    /**
-     * Konstruktorn initialiserar attributerna vid skapande av gameFrame.
-     *
-     * @param primaryStage
-     */
+    /* Konstruktorn initialiserar attributerna vid skapande av gameFrame */
     public GameFrame(Stage primaryStage) {
 
         this.btNewSession = new Button("Nytt Parti");
+        this.btExit = new Button("Avsluta");
         this.primarystage = primaryStage;
         this.mainframe = new BorderPane();
         this.optionBox = new VBox(10);
         this.infoBox = new HBox(15);
         this.topPane = new StackPane();
-        this.mainScene = new Scene(mainframe, minWidth, minHeight);
+        this.scene = new Scene(mainframe, minWidth, minHeight);
         this.txtScore = new TextArea();
-        this.scoreBox = new VBox(txtScore);
+        this.playerinfo = new Label();
+        this.scoreBox = new VBox(playerinfo, txtScore);
+
+        this.lblHeader = new Label("OTHELLO");
         newGameButton();
         ExitButton();
-
+        scene.getStylesheets().add("grupp01othello/view/OthelloStyle.css");
     }
 
     /**
@@ -76,7 +77,7 @@ public class GameFrame {
         primarystage.setMinHeight(minHeight);
         primarystage.setMinWidth(minWidth);
         primarystage.setTitle("CodeBusters");
-        primarystage.setScene(mainScene);
+        primarystage.setScene(scene);
         primarystage.show();
 
     }
@@ -90,7 +91,7 @@ public class GameFrame {
     }
 
     private void setScoreComponent() {
-        scoreBox.setMaxWidth(150);
+        scoreBox.setMaxWidth(200);
         scoreBox.setPadding(new Insets(15));
         scoreBox.layoutXProperty().bindBidirectional(mainframe.layoutXProperty());
         scoreBox.setAlignment(Pos.CENTER);
@@ -110,12 +111,12 @@ public class GameFrame {
     }
 
     /**
-     * Sätter in header komponenten som består av spelets namn
+     * Sätter in header komponenten som består av spelets namn.
      */
     private void setHeaderComponent() {
 
         lblHeader.setFont(Font.font("Arial", FontWeight.BOLD, 60));
-        lblHeader.setStyle("-fx-text-fill: #ffffff;");
+        lblHeader.setStyle("-fx-text-fill: rgba(114,131,148,0.9);" + "-fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.9) , 1, 0.0 , 0 , 2 );");
         lblHeader.setAlignment(Pos.CENTER);
         topPane.getChildren().add(lblHeader);
         topPane.setAlignment(Pos.CENTER);
@@ -151,6 +152,11 @@ public class GameFrame {
 
     public void updateScore(String scoreString) {
         txtScore.setText(scoreString);
+    }
+
+    public void setPlayerInfo(String player1, String player2) {
+        playerinfo.setId("playerinfo");
+        playerinfo.setText(player1 + "\n vs \n" + player2);
     }
 
 }

@@ -11,12 +11,13 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Markus
+ * @author Elvir
  */
 public class NewGameHandler implements EventHandler<ActionEvent> {
 
     private Stage primaryStage;
 
+    /* Konstruktor */
     public NewGameHandler(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -24,7 +25,7 @@ public class NewGameHandler implements EventHandler<ActionEvent> {
     @Override
     /**
      * metoden anropas av att användaren har klickat på nytt parti knappen och
-     * då skapar en ny spelomgång.
+     * då skapar en ny spelomgång, Stage stängs ner först.
      */
     public void handle(ActionEvent event) {
 

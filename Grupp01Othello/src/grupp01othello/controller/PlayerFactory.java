@@ -24,8 +24,8 @@ public class PlayerFactory {
     private GameBoard board;
 
     /**
-     * PlayerFactory skapar Dialoger till användaren för att skapa spelare,
-     * bestämma namn och typ av spelare ´
+     * Konstruktor. PlayerFactory skapar Dialoger till användaren för att skapa
+     * spelare, bestämma namn och typ av spelare ´
      *
      * @param grid
      * @param board
@@ -70,15 +70,18 @@ public class PlayerFactory {
                 player2 = new RemoteComputerPlayer(2, playerName2, grid);
             }
         } catch (IOException e) {
-            System.out.println("Un-able to connect!");        
+            e.printStackTrace();
+            System.out.println("Un-able to connect!");
         }
 
     }
 
+    /* Getter för player 1 */
     public Player getPlayerOne() {
         return player1;
     }
 
+    /* Getter för player 2 */
     public Player getPlayerTwo() {
         return player2;
     }

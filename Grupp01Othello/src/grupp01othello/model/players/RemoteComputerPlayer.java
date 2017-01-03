@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 public class RemoteComputerPlayer extends Player {
 
     private OthelloClient client;
+
     /* Konstruktor */
     public RemoteComputerPlayer(int markerID, String playerName, OthelloGrid grid) throws IOException {
         super(markerID, playerName, grid);
@@ -32,26 +33,35 @@ public class RemoteComputerPlayer extends Player {
         move.setColumn(col);
     }
 
+    /**
+     * getMove hämtar lagliga drag från grid, och skickar antalet lagliga drag
+     * till, servern som då kommer returnera ett slumptal, som då kommer vara
+     * datorns drag.
+     *
+     * @return draget
+     */
     @Override
     public Move getMove() {
         try {
 
             ArrayList<Move> legalMoves = grid.getLegalMoves(markerID);
+            Thread.sleep(2000);
 
-            resetMove();
             /* Kollar så att det finns lagliga drag innan vi skickar till servern. */
             if (legalMoves.size() != 0) {
                 //System.out.print(legalMoves.size());
-                    client.sendtoServer(legalMoves.size());
-                    this.move = legalMoves.get(client.recieveFromServer());
+                client.sendtoServer(legalMoves.size());
+                this.move = legalMoves.get(client.recieveFromServer());
             } else {
                 /* Återställer draget ifall det inte kommer finnas lagliga drag. */
                 resetMove();
             }
+        } catch (InterruptedException ex) {
+
         } catch (IOException ex) {
             Logger.getLogger(RemoteComputerPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.print("row: " + move.getRow() + "col: " + move.getColumn());
+        // System.out.print("row: " + move.getRow() + "col: " + move.getColumn());
         return move;
     }
 

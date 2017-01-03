@@ -18,6 +18,7 @@ public class OthelloGrid implements GameGrid {
     private int[][] grid;
     private ArrayList<GridObserver> observers;
 
+    /* Konstruktor */
     public OthelloGrid(int size) {
         SIZE = size;
         grid = new int[SIZE][SIZE];
@@ -40,7 +41,7 @@ public class OthelloGrid implements GameGrid {
         grid[3][4] = 2;
         grid[4][4] = 1;
         grid[4][3] = 2;
-
+       // displayGrid();
         notifyObserver(); // notifierar observer så GUIn får start pjäserna.
     }
 
@@ -103,33 +104,53 @@ public class OthelloGrid implements GameGrid {
         }
     }
 
+    /**
+     * Utför draget som fås av en spelare i gamemanager på othellogriden, och
+     * notifierar observern så att GUIn uppdateras.
+     *
+     * @param move
+     * @param markerID
+     */
     public void playMove(Move move, int markerID) {
         if ((move.getRow() >= 0) && (move.getColumn() >= 0)) {
             usedTiles++;
             processMove(markerID, move.getRow(), move.getColumn());
         }
-
+       // displayGrid();
         notifyObserver();
     }
 
     /**
-     * processMove
+     * processMove ör huvudmetoden för att vända de markörer som skall vändas
+     * när spelaren har gjort sitt drag, metoden tar in spelarens markörID och
+     * placeringen av markören.
      *
      * @param markerID
      * @param row
      * @param col
      */
     public void processMove(int markerID, int row, int col) {
-        if(legalMove(markerID, row, col)){
+        /* Loopar åt alla riktninger från spelarens markör.*/
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 processPath(markerID, row + i, col + j, i, j);
             }
         }
+        /* När de andra markörerna har ändrats så ändrar vi också där spelaren la sin*/
         grid[row][col] = markerID;
-        }
     }
 
+    /**
+     * Processerar en specific riktning, och vänder till spelarens markörID
+     * enligt othellos spelregler.
+     *
+     * @param markerID
+     * @param row
+     * @param col
+     * @param nextRow
+     * @param nextCol
+     * @return om riktningen är giltig.
+     */
     private boolean processPath(int markerID, int row, int col, int nextRow, int nextCol) {
         if ((row < 0) || (col < 0) || (row >= SIZE) || (col >= SIZE)) {
             return false;
@@ -145,6 +166,7 @@ public class OthelloGrid implements GameGrid {
             }
         }
         if (processPath(markerID, row + nextRow, col + nextCol, nextRow, nextCol)) {
+            /* om riktningen visar sig vara giltig så vänder vi brickorna på tillbakavägen */
             grid[row][col] = markerID;
             return true;
         } else {
@@ -153,18 +175,19 @@ public class OthelloGrid implements GameGrid {
     }
 
     /**
-     * legalMove startar den rekursiva processen att kolla om det är lagligt att
-     * lägga där du vill lägga
-     *
+     * legalMove startar den rekursiva processen att kolla om det är lagligt för
+     * spelaren att lägga en spelbricka på den platsen som får som in parameter.
      *
      * @param markerID
      * @param row
      * @param col
-     * @return
+     * @return om draget är giltigt.
      */
     public boolean legalMove(int markerID, int row, int col) {
+        /* Loopar åt alla riktninger från spelarens markör.*/
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
+                /* Om en väg är riktigt så räcker det för att returnera true */
                 if (isLegalPath(markerID, row + i, col + j, i, j)) {
                     //System.out.println(row + " " + col);
                     return true;
@@ -175,27 +198,56 @@ public class OthelloGrid implements GameGrid {
 
     }
 
-    private boolean isLegalPath(int colour, int row, int col, int nextRow, int nextCol) {
+    /**
+     * Metoden fungerar som processPath, fast den kollar om riktningen är giltig
+     * utan att vända brickorna.
+     *
+     * @param markerID
+     * @param row
+     * @param col
+     * @param nextRow
+     * @param nextCol
+     * @return boolean om riktningen är giltig.
+     */
+    private boolean isLegalPath(int markerID, int row, int col, int nextRow, int nextCol) {
+        /* så vi inte hamnar utanför spelbrädan */
         if ((row < 0) || (col < 0) || (row >= 8) || (col >= 8)) {
             return false;
         }
+        /* om vi kommer till en "tom" plats */
         if (grid[row][col] == 0) {
             return false;
         }
-        if ((grid[row][col] == colour)) {
+        /* Kollar så att den föregående markören är likadan och inte tom. När vi stöter på
+           en markör som är likadan som spelarens i slutet så kommer vi få att det är en giltigt väg. */
+        if ((grid[row][col] == markerID)) {
             if (grid[row - nextRow][col - nextCol] != 0) {
                 return true;
             } else {
                 return false;
             }
         }
-        return (processPath(colour, row + nextRow, col + nextCol, nextRow, nextCol));
+        /* vi ökar row och col och flyttar ett steg hela tiden och så flyttar vi så rekursivt 
+           och om den sista är sann så är det en giltig väg, annars ej. */
+        if (isLegalPath(markerID, row + nextRow, col + nextCol, nextRow, nextCol)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    /**
+     * Hämtar alla lagliga drag för spelaren som skickas in som parameter till
+     * metoden, alla drag lagras i en arraylist av typen Move.
+     *
+     * @param markerID
+     * @return en arraylist med lagliga drag.
+     */
     public ArrayList<Move> getLegalMoves(int markerID) {
 
         ArrayList<Move> legalmoves = new ArrayList<Move>();
 
+        /* Loopar igenom griden */
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if (grid[row][col] == 0) { // så algoritmen inte testar sätta in från "existerande" pjäser.
@@ -214,16 +266,21 @@ public class OthelloGrid implements GameGrid {
         return this.grid;
     }
 
+    /**
+     * Denna metod skickar tillbaka en sträng med antal markörer för vardera
+     * spelare.
+     *
+     * @return
+     */
     public String scoreBoard() {
         int black = 0, white = 0;
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                if (grid[x][y] != 0) {
-                    if (grid[x][y] == 1) {
-                        black += 1;
-                    } else {
-                        white += 1;
-                    }
+                if (grid[x][y] == 1) {
+                    black += 1;
+                }
+                if ((grid[x][y] == 2)) {
+                    white += 1;
                 }
             }
         }
@@ -232,4 +289,16 @@ public class OthelloGrid implements GameGrid {
         return Score;
     }
 
+    /**
+     * För att debugga.
+     */
+    public void displayGrid() {
+        for (int row = 0; row < SIZE; row++) {
+            System.out.print("\n" + row + ": ");
+            for (int col = 0; col < SIZE; col++) {
+                System.out.print(grid[row][col] + " ");
+            }
+
+        }
+    }
 }

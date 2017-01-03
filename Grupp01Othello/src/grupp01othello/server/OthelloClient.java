@@ -5,11 +5,11 @@
  */
 package grupp01othello.server;
 
+import grupp01othello.controller.ExitHandler;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.ResultSet;
 
 /**
  *
@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  */
 public class OthelloClient {
 
-    private int port = 6969;
+    private int port;
     private String host;
     private DataInputStream fromServer;
     private DataOutputStream toServer;
@@ -29,35 +29,51 @@ public class OthelloClient {
      * @throws IOException
      */
     public OthelloClient() throws IOException {
-        this.host = "localhost";
 
         connectToServer();
 
     }
 
     /**
-     * Anslutnings metoden till servern
+     * Anslutnings metoden till servern, skapar in- och
+     * ut strömmar.
      *
      * @throws IOException
      */
     private void connectToServer() throws IOException {
         try {
-            DatabaseManager db = new DatabaseManager();
-            db.getData();
+            /* hämtar server informationen genom den lagrade proceduren */
+            String[] serverInfo = DatabaseManager.getServerConnectionDetails(2);
+            host = serverInfo[0];
+            port = Integer.parseInt(serverInfo[1]);
+            /* Ansluter till servern*/
             socket = new Socket(host, port);
             fromServer = new DataInputStream(socket.getInputStream());
             toServer = new DataOutputStream(socket.getOutputStream());
         } catch (Exception e) {
+            /* Stänger av om inte uppkopplingen fungerar */
             e.printStackTrace();
+            new ExitHandler().exit();
         }
     }
 
-    /* Skickar meddelande till servern. */
+    /**
+     * skickar meddelande av typen int 
+     * till servern.
+     * @param message
+     * @throws IOException 
+     */
     public void sendtoServer(int message) throws IOException {
         toServer.write(message);
         toServer.flush();
     }
-    /* Läser retur värde från servern. */
+   
+    /**
+     * tar emot meddelande av typen int
+     * från servern.
+     * @return
+     * @throws IOException 
+     */
     public int recieveFromServer() throws IOException {
         int answer = fromServer.read();
         return answer;
