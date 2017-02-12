@@ -25,7 +25,7 @@ public class PlayerFactory {
 
     /**
      * Konstruktor. PlayerFactory skapar Dialoger till användaren för att skapa
-     * spelare, bestämma namn och typ av spelare ´
+     * spelare, bestämma namn och typ av spelare
      *
      * @param grid
      * @param board
