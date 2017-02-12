@@ -301,4 +301,5 @@ public class OthelloGrid implements GameGrid {
 
         }
     }
+
 }
